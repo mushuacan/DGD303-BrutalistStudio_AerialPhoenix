@@ -9,16 +9,16 @@ public class PlayerMovement : MonoBehaviour
     public float maxMoveSpeed;
     public float speedHorizontal;
     public float speedVertical;
-    public Vector3 targetPosition;
+    private Vector3 targetPosition;
 
     private bool isMouseOn;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        isMouseOn = true;
+        //rb = GetComponent<Rigidbody>();
+        isMouseOn = false;
     }
 
     void Update()
