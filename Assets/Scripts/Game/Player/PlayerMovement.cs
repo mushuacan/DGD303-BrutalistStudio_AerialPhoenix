@@ -6,19 +6,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float maxMoveSpeed;
     public float speedHorizontal;
     public float speedVertical;
-    private Vector3 targetPosition;
 
-    private bool isMouseOn;
-
+    [Header("References")]
     public Rigidbody rb;
+
+    private Vector3 targetPosition;
+    private bool isMouseControlActive;
 
     private void Start()
     {
         //rb = GetComponent<Rigidbody>();
-        isMouseOn = false;
+        isMouseControlActive = false;
     }
 
     void Update()
@@ -29,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isMouseOn)
+        if (isMouseControlActive)
         {
             //Mouse Controls
             MouseMovement();
@@ -39,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
             //Keyboard Controls
             MoveSpeedHorizontal();
             MoveSpeedVertical();
+
+
+            rb.MovePosition(new Vector3(rb.position.x + speedHorizontal * Time.fixedDeltaTime, rb.position.y, rb.position.z + speedVertical * Time.fixedDeltaTime));
         }
     }
 
@@ -47,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isMouseOn = !isMouseOn;
+            isMouseControlActive = !isMouseControlActive;
 
             speedHorizontal = 0;
             speedVertical = 0;
@@ -87,38 +92,35 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            speedHorizontal = MovementFormula(speedHorizontal, maxMoveSpeed, "D");
+            speedHorizontal = CalculateMovementSpeed(speedHorizontal, maxMoveSpeed, "D");
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            speedHorizontal = MovementFormula(speedHorizontal, -maxMoveSpeed, "A");
+            speedHorizontal = CalculateMovementSpeed(speedHorizontal, -maxMoveSpeed, "A");
         }
         else if (speedHorizontal != 0)
         {
-            speedHorizontal = StoppingFormula(speedHorizontal);
+            speedHorizontal = CalculateStoppingSpeed(speedHorizontal);
         }
-
-        rb.MovePosition(new Vector3(rb.position.x + speedHorizontal * Time.fixedDeltaTime, rb.position.y, rb.position.z));
     }
 
     private void MoveSpeedVertical()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            speedVertical = MovementFormula(speedVertical, maxMoveSpeed, "W");
+            speedVertical = CalculateMovementSpeed(speedVertical, maxMoveSpeed, "W");
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            speedVertical = MovementFormula(speedVertical, -maxMoveSpeed, "S");
+            speedVertical = CalculateMovementSpeed(speedVertical, -maxMoveSpeed, "S");
         }
         else if (speedVertical != 0)
         {
-            speedVertical = StoppingFormula(speedVertical);
+            speedVertical = CalculateStoppingSpeed(speedVertical);
         }
-        rb.MovePosition(new Vector3(rb.position.x, rb.position.y, rb.position.z + speedVertical * Time.fixedDeltaTime));
     }
 
-    private float MovementFormula(float speed, float maxSpeed, string pushedKey)
+    private float CalculateMovementSpeed(float speed, float maxSpeed, string pushedKey)
     {
 
         if (speed == maxSpeed)
@@ -137,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         return speed;
     }
 
-    private float StoppingFormula(float speed)
+    private float CalculateStoppingSpeed(float speed)
     {
         if (Mathf.Abs(speed) <= 0.5f)
         {
