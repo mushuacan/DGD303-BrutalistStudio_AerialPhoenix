@@ -6,18 +6,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // "Enemy" anahtarýna sahip nesneyi al ve pozisyonla
-        GameObject enemy = objectPool.GetObject("Enemy");
-        if (enemy != null)
-        {
-            enemy.transform.position = new Vector3(0, 0, 0);
-        }
+        Spawner("enemyT2", 3);
+    }
 
-        // "Bullet" anahtarýna sahip nesneyi al ve pozisyonla
-        GameObject bullet = objectPool.GetObject("Bullet");
-        if (bullet != null)
+
+    public void Spawner(string key, int howMany = 1)
+    {
+        for (int i = 0; i < howMany; i++)
         {
-            bullet.transform.position = new Vector3(1, 1, 0);
+            GameObject obje = objectPool.GetObject(key);
+            if (obje != null)
+            {
+                obje.transform.position = new Vector3(0, 0, 0);
+            }
         }
     }
 }
