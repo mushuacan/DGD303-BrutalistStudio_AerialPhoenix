@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        if(timer > 1)
-        {
-            Spawner("enemyT2", 1);
-            timer = 0;
-        }
-    }
+    //private void Update()
+    //{
+    //    timer += Time.deltaTime;
+    //    if(timer > 1)
+    //    {
+    //        Spawner("enemyT2", 1);
+    //        timer = 0;
+    //    }
+    //}
 }

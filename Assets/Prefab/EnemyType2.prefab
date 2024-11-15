@@ -124,11 +124,11 @@ MonoBehaviour:
   waitTime: 15
   upperBoundZ: 10
   boundaryX: 13
-  speed: 4
+  speed: 6
   speedChangeRate: 0.2
-  maxTurnAngle: 1
+  maxTurnAngle: 0.25
   angleChangeRate: 0.05
-  changeFrequency: 0.25
+  changeFrequency: 10000
 --- !u!114 &5607142244516488286
 MonoBehaviour:
   m_ObjectHideFlags: 0
