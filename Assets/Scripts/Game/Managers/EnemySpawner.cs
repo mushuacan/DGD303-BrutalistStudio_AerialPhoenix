@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private MultiObjectPool objectPool;
+    private float timer;
 
     void Start()
     {
@@ -19,6 +20,16 @@ public class GameManager : MonoBehaviour
             {
                 obje.transform.position = new Vector3(0, 0, 0);
             }
+        }
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if(timer > 1)
+        {
+            Spawner("enemyT2", 1);
+            timer = 0;
         }
     }
 }
