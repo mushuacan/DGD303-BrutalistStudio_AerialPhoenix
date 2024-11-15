@@ -295,6 +295,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &237598563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237598564}
+  m_Layer: 0
+  m_Name: ObjectList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237598564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237598563}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2115229329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314531577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1636204238}
   - component: {fileID: 1636204240}
+  - component: {fileID: 1636204242}
   - component: {fileID: 1636204239}
   - component: {fileID: 1636204241}
   m_Layer: 0
@@ -1168,6 +1200,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1636204242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636204237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e228ac14da3003842ba44d86ea1d6866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPool: {fileID: 2115229328}
+  FireTime: 1
 --- !u!1 &1940713873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,18 +1380,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be8306ddd608db419cc7866ae74b427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentTransform: {fileID: 237598564}
   poolItems:
   - key: enemyT1
     prefab: {fileID: 3779257546009648563, guid: d76f25c2b2461d448918d661cd852744,
       type: 3}
     initialSize: 10
+    comment: "Normal u\xE7ak"
   - key: bullet_eT1
     prefab: {fileID: 5630156879787195846, guid: 44cc2a93aa4a58f4faab2731547f2c04,
       type: 3}
     initialSize: 100
+    comment: 
   - key: enemyT2
     prefab: {fileID: 684375070345145322, guid: d33b4417fecb01f4c9800d2633f953f6, type: 3}
     initialSize: 5
+    comment: Suicader, Drone
+  - key: bullet_pT1
+    prefab: {fileID: 1032135101693616317, guid: 5bd7e1d949ff26143a2f35366a951a24,
+      type: 3}
+    initialSize: 15
+    comment: Oyuncunun basic mermisi
 --- !u!4 &2115229329
 Transform:
   m_ObjectHideFlags: 0
@@ -1358,7 +1413,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 237598564}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2115229330
@@ -1473,7 +1529,7 @@ Transform:
   m_GameObject: {fileID: 2131804779}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -9.94, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []

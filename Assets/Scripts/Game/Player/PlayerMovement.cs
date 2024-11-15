@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             speed = maxSpeed;
         }
 
-        Debug.Log(pushedKey + " tuþu basýlý ve hýz -> " + speed);
+        //Debug.Log(pushedKey + " tuþu basýlý ve hýz -> " + speed);
 
         return speed;
     }
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
         speed = speed * 0.8f;
 
-        Debug.Log("Bir tuþa basýlý deðil ve hýz -> " + speedHorizontal);
+        //Debug.Log("Bir tuþa basýlý deðil ve hýz -> " + speedHorizontal);
 
         return speed;
     }

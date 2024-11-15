@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterScript : MonoBehaviour
+public class EnemyType2 : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;          // Karakterin hareket hýzý
     [SerializeField] private Transform target;          // Hedef karakter (örneðin Player)
     [SerializeField] private float waitTime = 1f;       // Bekleme süresi
-    [SerializeField] private float maxTurnAngle = 3f;   // Maksimum dönüþ açýsý
     [SerializeField] private float upperBoundZ = 10f;   // Yukarý çýkma z seviyesi
     [SerializeField] private float boundaryX = 13f;     // Kenardan çýkýþ X aralýðý
+    [SerializeField] private float speed = 5f;          // Karakterin hareket hýzý
+    [SerializeField] private float speedChangeRate;
+    [SerializeField] private float maxTurnAngle = 3f;   // Maksimum dönüþ açýsý
+    [SerializeField] private float angleChangeRate;
+    [SerializeField] private float changeFrequency;
+    private float changeTimer;
 
     private bool isDescending = true;       // Baþlangýç iniþ durumu
 
@@ -44,9 +48,7 @@ public class CharacterScript : MonoBehaviour
 
     private IEnumerator WaitAndRotateToTarget()
     {
-        Debug.Log("Coroutine baþlatýldý");
         yield return new WaitForSeconds(waitTime);
-        Debug.Log("Bekleme tamamlandý");
     }
 
 
@@ -57,12 +59,25 @@ public class CharacterScript : MonoBehaviour
 
         float limitedAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, maxTurnAngle);
         transform.rotation = Quaternion.Euler(0, limitedAngle, 0);
-        maxTurnAngle += 0.0001f;
+    }
+
+    private void IncreaseSpeed()
+    {
+        changeTimer += Time.deltaTime;
+        if (changeTimer > changeFrequency)
+        {
+            speed += speedChangeRate;
+            maxTurnAngle += angleChangeRate;
+            changeTimer = 0;
+        }
     }
 
     private void MoveTowardsTarget()
     {
-        FaceTarget();  // Hedefe sýnýrlý açýda dön
+        IncreaseSpeed();
+
+        // Hedefe sýnýrlý açýda dön
+        FaceTarget();  
 
         // Hedefe doðru ilerleme
         transform.Translate(Vector3.forward * speed * Time.deltaTime);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MultiObjectPool : MonoBehaviour
 {
@@ -11,10 +12,16 @@ public class MultiObjectPool : MonoBehaviour
         [Tooltip("Prefab referansý")]
         public GameObject prefab;   
         [Tooltip("Baþlangýç havuz büyüklüðü")]
-        public int initialSize = 10; 
+        public int initialSize = 10;
+        [SerializeField] private string comment;
     }
 
+    [Header("Parent Object for Pool Items")]
+    [SerializeField] private Transform parentTransform;  // Objelerin ekleneceði parent objesi
+
     [SerializeField] private List<PoolItem> poolItems;
+
+
 
     // Her bir tür için ayrý bir havuz dictionary'si
     private Dictionary<string, Queue<GameObject>> poolDictionary;
@@ -30,7 +37,7 @@ public class MultiObjectPool : MonoBehaviour
             // Her prefab için belirli sayýda nesne oluþturuluyor
             for (int i = 0; i < item.initialSize; i++)
             {
-                GameObject obj = Instantiate(item.prefab);
+                GameObject obj = Instantiate(item.prefab, parentTransform);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
@@ -40,7 +47,7 @@ public class MultiObjectPool : MonoBehaviour
     }
 
     // Havuzdan nesne al (anahtarla nesne tipini belirliyoruz)
-    public GameObject GetObject(string key)
+    public GameObject GetObject(string key, Vector3 pozition = default)
     {
         if (!poolDictionary.ContainsKey(key))
         {
@@ -69,6 +76,10 @@ public class MultiObjectPool : MonoBehaviour
         }
 
         obj.SetActive(true);
+
+        if (pozition == default) { pozition = Vector3.zero; }
+        obj.transform.position = pozition;
+        
         return obj;
     }
 

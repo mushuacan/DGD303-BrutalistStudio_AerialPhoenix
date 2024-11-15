@@ -10,7 +10,6 @@ public class TextAnimator : MonoBehaviour
     public float cursorBlinkSpeed = 0.5f; // Cursor yanýp sönme hýzý
 
     private bool isBlinking = false;
-    private bool isMouseClicked = false;  // Fare týklanýp týklanmadýðýný kontrol eden bool
     private Coroutine typingCoroutine = null;  // Yazý yazma coroutine referansý
     private Coroutine clickCoroutine = null;   // Fare týklama coroutine referansý
     private Coroutine cursorBlinkCoroutine = null;  // Cursor blink coroutine referansý
@@ -42,7 +41,6 @@ public class TextAnimator : MonoBehaviour
         {
             yield return null;  // Bir sonraki frame'e geç
         }
-        isMouseClicked = true;  // Fare týklamasý algýlandýðýnda bool deðerini true yapýyoruz
     }
 
     private IEnumerator AnimateText(string speakerName, string fullText, float speakingSpeed = 0.05f)
