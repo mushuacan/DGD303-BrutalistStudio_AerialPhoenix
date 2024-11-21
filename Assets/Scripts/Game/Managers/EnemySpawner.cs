@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     }
     private void SpawnTwoEnemyT1()
     {
-        Spawner("enemyT1", 3);
+        Spawner("enemyT1", 2);
         DOVirtual.DelayedCall(3, SpawnOneDrone);
     }
     private void SpawnOneDrone()
@@ -30,10 +30,15 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < howMany; i++)
         {
-            GameObject obje = objectPool.GetObject(key);
+            GameObject obje = ObjectPoolSingleton.Instance.GetObject(key);
             if (obje != null)
             {
-                obje.transform.position = new Vector3(0, 0, 0);
+                // Z pozisyonu -13 ile 13 arasýnda rastgele bir deðer
+                float randomZ = Random.Range(-10f, 10f);
+
+                // Objeyi yeni Z pozisyonuna yerleþtir
+                obje.transform.position = new Vector3(randomZ, 0, 6);
+
             }
         }
     }

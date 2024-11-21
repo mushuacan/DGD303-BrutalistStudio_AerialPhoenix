@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MultiObjectPool : MonoBehaviour
 {
@@ -8,33 +7,40 @@ public class MultiObjectPool : MonoBehaviour
     public class PoolItem
     {
         [Tooltip("Nesne türünü tanýmlayan anahtar.")]
-        public string key;          
+        public string key;
         [Tooltip("Prefab referansý")]
-        public GameObject prefab;   
+        public GameObject prefab;
         [Tooltip("Baþlangýç havuz büyüklüðü")]
         public int initialSize = 10;
+        [Tooltip("Havuz elemanlarý hakkýnda bilgi notu.")]
         [SerializeField] private string comment;
     }
 
     [Header("Parent Object for Pool Items")]
-    [SerializeField] private Transform parentTransform;  // Objelerin ekleneceði parent objesi
+    [SerializeField] private Transform parentTransform; // Objelerin ekleneceði parent objesi
 
     [SerializeField] private List<PoolItem> poolItems;
 
-
-
-    // Her bir tür için ayrý bir havuz dictionary'si
+    // Havuz için dictionary (key: prefab tipi, value: prefab havuzu)
     private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     private void Awake()
     {
+        // Eðer parentTransform atanmadýysa otomatik oluþtur
+        if (parentTransform == null)
+        {
+            GameObject poolParent = new GameObject("ObjectPoolParent");
+            parentTransform = poolParent.transform;
+        }
+
+        // Havuz dictionary'sini baþlat
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (var item in poolItems)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
-            // Her prefab için belirli sayýda nesne oluþturuluyor
+            // Havuz elemanlarýný oluþtur ve sýraya ekle
             for (int i = 0; i < item.initialSize; i++)
             {
                 GameObject obj = Instantiate(item.prefab, parentTransform);
@@ -46,53 +52,67 @@ public class MultiObjectPool : MonoBehaviour
         }
     }
 
-    // Havuzdan nesne al (anahtarla nesne tipini belirliyoruz)
-    public GameObject GetObject(string key, Vector3 pozition = default)
+    public GameObject GetObject(string key, Vector3 position = default, Quaternion rotation = default)
     {
         if (!poolDictionary.ContainsKey(key))
         {
-            Debug.LogWarning($"Pool with key {key} does not exist.");
+            Debug.LogWarning($"Havuzda {key} anahtarýyla eþleþen bir nesne yok.");
             return null;
         }
 
         GameObject obj;
+
         if (poolDictionary[key].Count > 0)
         {
             obj = poolDictionary[key].Dequeue();
         }
         else
         {
-            // Havuzda nesne kalmamýþsa yeni bir tane oluþtur
+            // Eðer havuzda nesne kalmamýþsa yeni bir tane oluþtur
             PoolItem poolItem = poolItems.Find(item => item.key == key);
             if (poolItem != null)
             {
-                obj = Instantiate(poolItem.prefab);
+                obj = Instantiate(poolItem.prefab, parentTransform);
             }
             else
             {
-                Debug.LogError($"Prefab for key {key} not found in pool items.");
+                Debug.LogError($"Havuzda {key} anahtarýyla eþleþen prefab bulunamadý.");
                 return null;
             }
         }
 
         obj.SetActive(true);
 
-        if (pozition == default) { pozition = Vector3.zero; }
-        obj.transform.position = pozition;
-        
+        // Varsayýlan pozisyon ve rotasyon
+        obj.transform.position = position == default ? Vector3.zero : position;
+        obj.transform.rotation = rotation == default ? Quaternion.identity : rotation;
+
         return obj;
     }
 
-    // Nesneyi havuza geri býrak
     public void ReturnObject(string key, GameObject obj)
     {
         if (!poolDictionary.ContainsKey(key))
         {
-            Debug.LogWarning($"Pool with key {key} does not exist.");
+            Debug.LogError($"Havuzda {key} anahtarýyla eþleþen bir nesne yok.");
+            Destroy(obj); // Eðer geçersiz bir nesne geldiyse doðrudan yok et
             return;
         }
 
         obj.SetActive(false);
+        obj.transform.position = Vector3.zero;
+        obj.transform.rotation = Quaternion.identity;
         poolDictionary[key].Enqueue(obj);
+    }
+
+    public int GetPoolSize(string key)
+    {
+        if (poolDictionary.ContainsKey(key))
+        {
+            return poolDictionary[key].Count;
+        }
+
+        Debug.LogWarning($"Havuzda {key} anahtarýyla eþleþen bir nesne yok.");
+        return 0;
     }
 }

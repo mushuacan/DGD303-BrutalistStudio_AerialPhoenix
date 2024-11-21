@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class EnemyType2 : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class EnemyType2 : MonoBehaviour
             }
             else
             {
-                transform.Translate(Vector3.forward * currentSpeed * 0.7f * Time.deltaTime);
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-0.7f * currentSpeed * Time.deltaTime));
             }
         }
         else
@@ -74,6 +75,9 @@ public class EnemyType2 : MonoBehaviour
     private void StartCharging()
     {
         isDescending = false;
+        // Yönü -Z pozisyonuna döndür
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+
     }
 
     private void MoveTowardsTarget()

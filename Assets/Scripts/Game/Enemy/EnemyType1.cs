@@ -68,8 +68,8 @@ public class EnemyType1 : MonoBehaviour
 
     private void Shoot()
     {
-        // Mermiyi instantiate et ve aþaðý yönlü pozisyonla
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = ObjectPoolSingleton.Instance.GetObject("bullet_eT1");
         bullet.GetComponent<Bullet>().SetDirection(Vector3.back);
+        bullet.transform.position = this.gameObject.transform.position;
     }
 }
