@@ -24,7 +24,6 @@ public class ObjectPoolSingleton : MonoBehaviour
 
     public void ReturnObject(string objectType, GameObject obj)
     {
-        // Obje havuza geri döndürme iþlemi
-        Debug.Log($"ReturnObject çaðrýldý: {objectType}");
+        objectPool.ReturnObject(objectType, obj);
     }
 }

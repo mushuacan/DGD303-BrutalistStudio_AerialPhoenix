@@ -4,18 +4,12 @@ using UnityEngine;
 public class EnemyType2_Collision : MonoBehaviour
 {
     private GameObject player;
-    private MultiObjectPool poolManager;
     [SerializeField] private float triggerDistance = 100f;
     private float distanceToPlayer;
     private Tween delayedExplosionTween;
 
     private void Start()
     {
-        poolManager = FindObjectOfType<MultiObjectPool>(); // Havuz yöneticisini bul
-        if (poolManager == null)
-        {
-            Debug.LogError("MultiObjectPool bulunamadý! Havuz sistemi düzgün çalýþmayabilir.");
-        }
 
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
@@ -43,6 +37,8 @@ public class EnemyType2_Collision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            PlayerHealth playerHealth = (PlayerHealth) other.gameObject.GetComponent<PlayerHealth>();
+            playerHealth.DamagePlayer(20f);
             ExplodeYourself();
         }
         else if (other.gameObject.CompareTag("Enemy"))
@@ -58,17 +54,8 @@ public class EnemyType2_Collision : MonoBehaviour
         {
             delayedExplosionTween.Kill();
         }
-
-        if (poolManager != null)
-        {
-            poolManager.ReturnObject("enemyT2", this.gameObject);
-        }
-        else
-        {
-            Debug.LogError("PoolManager bulunamadý. Obje yok ediliyor.");
-            Destroy(gameObject); // Havuz sistemi yoksa objeyi yok et
-        }
-
+        ObjectPoolSingleton.Instance.ReturnObject("enemyT2", this.gameObject);
+        
         Debug.Log("Patladý");
     }
 
@@ -81,15 +68,7 @@ public class EnemyType2_Collision : MonoBehaviour
             delayedExplosionTween.Kill();
         }
 
-        if (poolManager != null)
-        {
-            poolManager.ReturnObject("enemyT2", gameObject);
-        }
-        else
-        {
-            Debug.LogError("PoolManager bulunamadý. Obje yok ediliyor.");
-            Destroy(gameObject);
-        }
+        ObjectPoolSingleton.Instance.ReturnObject("enemyT2", this.gameObject);
     }
 
     private void DelayedExplosion(float delay)
