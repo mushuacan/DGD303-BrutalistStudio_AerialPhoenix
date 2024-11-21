@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,9 +8,23 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Spawner("enemyT2", 3);
+        DOVirtual.DelayedCall(1, SpawnThreeDrone);
     }
 
+    private void SpawnThreeDrone()
+    {
+        Spawner("enemyT2", 3);
+        DOVirtual.DelayedCall(4, SpawnTwoEnemyT1);
+    }
+    private void SpawnTwoEnemyT1()
+    {
+        Spawner("enemyT1", 3);
+        DOVirtual.DelayedCall(3, SpawnOneDrone);
+    }
+    private void SpawnOneDrone()
+    {
+        Spawner("enemyT2", 1);
+    }
 
     public void Spawner(string key, int howMany = 1)
     {

@@ -121,14 +121,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  waitTime: 15
+  waitTime: 0.2
   upperBoundZ: 10
   boundaryX: 13
-  speed: 6
-  speedChangeRate: 0.2
-  maxTurnAngle: 0.25
-  angleChangeRate: 0.05
-  changeFrequency: 10000
+  baseSpeed: 5
+  maxTurnAngle: 15
+  explosionDistance: 0.8
+  speedMultiplier: 1.5
+  turnStrengthIncreaseInterval: 3
+  turnStrengthMultiplier: 1.2
 --- !u!114 &5607142244516488286
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float maxMoveSpeed;
-    public float speedHorizontal;
-    public float speedVertical;
+    public float edgeForX;
+    public float edgeForZ;
 
     [Header("References")]
     public Rigidbody rb;
@@ -17,9 +17,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 targetPosition;
     private bool isMouseControlActive;
 
+    private Vector3 movementInput;
+
     private void Start()
     {
-        //rb = GetComponent<Rigidbody>();
         isMouseControlActive = false;
     }
 
@@ -27,26 +28,91 @@ public class PlayerMovement : MonoBehaviour
     {
         MouseMovementTargetPosition();
         SwitchController();
+        CollectKeyboardInput(); // W, A, S, D hareket giriþlerini topla
     }
 
     private void FixedUpdate()
     {
         if (isMouseControlActive)
         {
-            //Mouse Controls
+            // Fare kontrolü
             MouseMovement();
         }
         else
         {
-            //Keyboard Controls
-            MoveSpeedHorizontal();
-            MoveSpeedVertical();
-
-
-            rb.MovePosition(new Vector3(rb.position.x + speedHorizontal * Time.fixedDeltaTime, rb.position.y, rb.position.z + speedVertical * Time.fixedDeltaTime));
+            // Klavye kontrolü
+            MoveWithKeyboard();
         }
     }
 
+    private void MouseMovementTargetPosition()
+    {
+        // Fare pozisyonunu al ve dünya koordinatlarýna çevir
+        Vector3 mousePos = Input.mousePosition;
+        targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
+
+        // Sýnýrlarý uygula
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -edgeForX, edgeForX);
+        targetPosition.z = Mathf.Clamp(targetPosition.z, -edgeForZ, edgeForZ);
+    }
+
+    private void MouseMovement()
+    {
+        // Hareket yönünü hesapla
+        Vector3 direction = new Vector3(targetPosition.x, transform.position.y, targetPosition.z) - transform.position;
+
+        if (direction.magnitude > 0.1f) // Eðer hedefe yakýn deðilse
+        {
+            Quaternion toRotation = Quaternion.LookRotation(direction);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, toRotation, Time.deltaTime * maxMoveSpeed));
+
+            // Hareketi Rigidbody ile uygula
+            Vector3 moveDirection = direction.normalized * maxMoveSpeed * Time.fixedDeltaTime;
+            Vector3 nextPosition = rb.position + moveDirection;
+
+            // Sýnýrlarý uygula
+            nextPosition = ClampPosition(nextPosition);
+            rb.MovePosition(nextPosition);
+        }
+    }
+
+    private void CollectKeyboardInput()
+    {
+        // Hareket giriþlerini topla
+        movementInput = Vector3.zero;
+        if (Input.GetKey(KeyCode.W)) movementInput.z += 1;
+        if (Input.GetKey(KeyCode.S)) movementInput.z -= 1;
+        if (Input.GetKey(KeyCode.D)) movementInput.x += 1;
+        if (Input.GetKey(KeyCode.A)) movementInput.x -= 1;
+
+        // Hareket yönünü normalize et (daha hýzlý gitmeyi engellemek için)
+        if (movementInput.magnitude > 1)
+        {
+            movementInput.Normalize();
+        }
+    }
+
+    private void MoveWithKeyboard()
+    {
+        // Hareket hýzýný uygula
+        Vector3 movement = movementInput * maxMoveSpeed * Time.fixedDeltaTime;
+
+        // Yeni pozisyonu hesapla
+        Vector3 nextPosition = rb.position + movement;
+
+        // Sýnýrlarý uygula
+        nextPosition = ClampPosition(nextPosition);
+        rb.MovePosition(nextPosition);
+    }
+
+    private Vector3 ClampPosition(Vector3 position)
+    {
+        // Pozisyonu sýnýrlar içinde tut
+        position.x = Mathf.Clamp(position.x, -edgeForX, edgeForX);
+        position.z = Mathf.Clamp(position.z, -edgeForZ, edgeForZ);
+
+        return position;
+    }
 
     public void SwitchController()
     {
@@ -54,104 +120,8 @@ public class PlayerMovement : MonoBehaviour
         {
             isMouseControlActive = !isMouseControlActive;
 
-            speedHorizontal = 0;
-            speedVertical = 0;
+            // Geçiþ sýrasýnda hareket giriþlerini sýfýrla
+            movementInput = Vector3.zero;
         }
     }
-
-    #region Mouse Controller Functions
-    //This function works on Update
-    private void MouseMovementTargetPosition()
-    {
-        // Fare pozisyonunu al ve dünya koordinatlarýna çevir
-        Vector3 mousePos = Input.mousePosition;
-        targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
-    }
-
-    //This function works on fixedUpdate
-    private void MouseMovement()
-    {
-        // Hareket yönünü hesapla (x ve z düzlemi üzerinde)
-        Vector3 direction = new Vector3(targetPosition.x, transform.position.y, targetPosition.z) - transform.position;
-
-        // Karakteri fare yönüne doðru döndür ve hareket ettir
-        if (direction.magnitude > 0.1f) // Eðer hedefe yakýn deðilse
-        {
-            Quaternion toRotation = Quaternion.LookRotation(direction); // Hedef rotasyon
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, toRotation, Time.deltaTime * maxMoveSpeed)); // Dönüþü yumuþat
-
-            // Hareketi Rigidbody ile uygula
-            Vector3 moveDirection = direction.normalized * maxMoveSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + moveDirection);
-        }
-    }
-    #endregion
-
-    #region Keyboard Control Functions
-    private void MoveSpeedHorizontal()
-    {
-        if (Input.GetKey(KeyCode.D))
-        {
-            speedHorizontal = CalculateMovementSpeed(speedHorizontal, maxMoveSpeed, "D");
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            speedHorizontal = CalculateMovementSpeed(speedHorizontal, -maxMoveSpeed, "A");
-        }
-        else if (speedHorizontal != 0)
-        {
-            speedHorizontal = CalculateStoppingSpeed(speedHorizontal);
-        }
-    }
-
-    private void MoveSpeedVertical()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            speedVertical = CalculateMovementSpeed(speedVertical, maxMoveSpeed, "W");
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            speedVertical = CalculateMovementSpeed(speedVertical, -maxMoveSpeed, "S");
-        }
-        else if (speedVertical != 0)
-        {
-            speedVertical = CalculateStoppingSpeed(speedVertical);
-        }
-    }
-
-    private float CalculateMovementSpeed(float speed, float maxSpeed, string pushedKey)
-    {
-
-        if (speed == maxSpeed)
-        {
-            return speed;
-        }
-
-        speed += (maxSpeed - speed) * 0.2f + maxSpeed * 0.2f;
-        if (Mathf.Abs(speed) > Mathf.Abs(maxSpeed))
-        {
-            speed = maxSpeed;
-        }
-
-        //Debug.Log(pushedKey + " tuþu basýlý ve hýz -> " + speed);
-
-        return speed;
-    }
-
-    private float CalculateStoppingSpeed(float speed)
-    {
-        if (Mathf.Abs(speed) <= 0.5f)
-        {
-            speed = 0;
-            return speed;
-        }
-
-        speed = speed * 0.8f;
-
-        //Debug.Log("Bir tuþa basýlý deðil ve hýz -> " + speedHorizontal);
-
-        return speed;
-    }
-    #endregion
 }
