@@ -1,32 +1,52 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private MultiObjectPool objectPool;
-    private float timer;
+    [SerializeField] private ActiveObjectCounter objectCounter;
+
 
     void Start()
     {
-        DOVirtual.DelayedCall(1, SpawnThreeDrone);
+        Debug.LogError("ResetState ayarlamayý unutma ~Mushu");
+        DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 
-    private void SpawnThreeDrone()
+    private void WaitAndSpawnNewEnemies()
     {
-        Spawner("enemyT2", 3);
-        DOVirtual.DelayedCall(4, SpawnTwoEnemyT1);
-    }
-    private void SpawnTwoEnemyT1()
-    {
-        Spawner("enemyT1", 2);
-        DOVirtual.DelayedCall(3, SpawnOneDrone);
-    }
-    private void SpawnOneDrone()
-    {
-        Spawner("enemyT2", 1);
+        if (EnemyCount() < 3)
+        {
+            CreateEnemies();
+        }
+
+        DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 
-    public void Spawner(string key, int howMany = 1)
+    private void CreateEnemies()
+    {
+        int randNum = Random.Range(1, 100);
+
+        if (randNum <= 40)
+        {
+            SpawnEnemy("enemyT2", 3);
+        }
+        else if (randNum <= 60)
+        {
+            SpawnEnemy("enemyT1", 1);
+        }
+        else
+        {
+            SpawnEnemy("enemyT2", 1);
+        }
+    }
+
+    private int EnemyCount()
+    {
+        return objectCounter.GetActiveObjectCount();
+    }
+
+    public void SpawnEnemy(string key, int howMany = 1)
     {
         for (int i = 0; i < howMany; i++)
         {
@@ -42,14 +62,4 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    //private void Update()
-    //{
-    //    timer += Time.deltaTime;
-    //    if(timer > 1)
-    //    {
-    //        Spawner("enemyT2", 1);
-    //        timer = 0;
-    //    }
-    //}
 }

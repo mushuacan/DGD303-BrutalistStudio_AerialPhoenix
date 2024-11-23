@@ -1614,6 +1614,7 @@ GameObject:
   - component: {fileID: 2115229328}
   - component: {fileID: 2115229331}
   - component: {fileID: 2115229330}
+  - component: {fileID: 2115229332}
   m_Layer: 0
   m_Name: ObjectPoolManager
   m_TagString: Untagged
@@ -1683,6 +1684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 2115229328}
+  objectCounter: {fileID: 2115229332}
 --- !u!114 &2115229331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,6 +1698,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 2115229328}
+--- !u!114 &2115229332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115229327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38ebfe2cfb2f5a48a2ba51aa6cda7bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentObject: {fileID: 237598564}
+  excludedNamesArray:
+  - Bullet_EnemyType1(Clone)
+  - Bullet_Player_Type1(Clone)
 --- !u!1 &2131804779
 GameObject:
   m_ObjectHideFlags: 0

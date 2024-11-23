@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 30
+  damage: 60
   maxRange: 30
   bulletObjectKey: bullet_pT1
 --- !u!23 &6826742945435449150

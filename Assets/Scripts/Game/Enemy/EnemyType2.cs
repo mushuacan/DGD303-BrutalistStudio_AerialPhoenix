@@ -23,6 +23,12 @@ public class EnemyType2 : MonoBehaviour
 
     private void Start()
     {
+
+        isDescending = true;
+
+        // Baþlangýç hýzý ve dönüþ güçlendirme zamanlayýcýsý
+        currentSpeed = baseSpeed;
+
         // Karakterin baþlangýç pozisyonunu rastgele ayarla
         float randomX = Random.Range(-boundaryX, boundaryX);
         transform.position = new Vector3(randomX, 0f, upperBoundZ);
@@ -34,15 +40,15 @@ public class EnemyType2 : MonoBehaviour
             target = player.transform;
         }
 
-        // Baþlangýç hýzý ve dönüþ güçlendirme zamanlayýcýsý
-        currentSpeed = baseSpeed;
-        turnStrengthTimer = 0f;
+        
     }
 
     private void Update()
     {
-        if (target == null) return;
-
+        if (target == null)
+        {
+            Debug.LogWarning("Target yok"); //return;
+        }
         // Zamanlayýcý ile dönüþ kabiliyeti artýr
         turnStrengthTimer += Time.deltaTime;
         if (turnStrengthTimer >= turnStrengthIncreaseInterval)
@@ -128,6 +134,16 @@ public class EnemyType2 : MonoBehaviour
         {
             Debug.LogError("EnemyType2_Collision bileþeni hala eklenemedi.");
         }
+    }
+
+    private void OnEnable()
+    {
+        ResetState();
+    }
+
+    private void ResetState()
+    {
+        isDescending = false;
     }
 
 }
