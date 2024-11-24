@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyType1 : MonoBehaviour
 {
+    [Header("Reset")]
+
     [Header("Movement Settings")]
     public float verticalSpeed = 2f;           // Aþaðýya hareket hýzý
     public float moveHeight = 5f;              // Düþmanýn duracaðý yükseklik
@@ -20,11 +22,17 @@ public class EnemyType1 : MonoBehaviour
 
     private void Start()
     {
-        // Sað-sol hareket sýnýrlarý
-        leftPosition = transform.position - new Vector3(horizontalMoveDistance, 0, 0);
-        rightPosition = transform.position + new Vector3(horizontalMoveDistance, 0, 0);
+        ResetSettings();
+    }
 
-        shootingTimer = shootingInterval; // Ýlk atýþ için zamanlayýcýyý baþlat
+    private void OnEnable()
+    {
+        ResetSettings();
+    }
+
+    private void ResetSettings()
+    {
+        movingRight = true;
     }
 
     private void Update()
@@ -64,6 +72,17 @@ public class EnemyType1 : MonoBehaviour
             if (transform.position.x <= leftPosition.x)
                 movingRight = true; // Saða dön
         }
+    }
+
+    public void SetPosition(Vector3 pozition)
+    {
+        transform.position = pozition;
+
+        // Sað-sol hareket sýnýrlarý
+        leftPosition = transform.position - new Vector3(horizontalMoveDistance, 0, 0);
+        rightPosition = transform.position + new Vector3(horizontalMoveDistance, 0, 0);
+
+        shootingTimer = shootingInterval; // Ýlk atýþ için zamanlayýcýyý baþlat
     }
 
     private void Shoot()

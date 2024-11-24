@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        Debug.LogError("ResetState ayarlamayý unutma ~Mushu");
         DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 
@@ -27,11 +26,11 @@ public class EnemySpawner : MonoBehaviour
     {
         int randNum = Random.Range(1, 100);
 
-        if (randNum <= 40)
+        if (randNum <= 20)
         {
             SpawnEnemy("enemyT2", 3);
         }
-        else if (randNum <= 60)
+        else if (randNum <= 70)
         {
             SpawnEnemy("enemyT1", 1);
         }
@@ -53,13 +52,29 @@ public class EnemySpawner : MonoBehaviour
             GameObject obje = ObjectPoolSingleton.Instance.GetObject(key);
             if (obje != null)
             {
-                // Z pozisyonu -13 ile 13 arasýnda rastgele bir deðer
-                float randomZ = Random.Range(-10f, 10f);
-
-                // Objeyi yeni Z pozisyonuna yerleþtir
-                obje.transform.position = new Vector3(randomZ, 0, 6);
+                SetPositionOfEnemies(key, obje);
 
             }
+        }
+    }
+
+    private void SetPositionOfEnemies(string key, GameObject obje)
+    {
+        float randomZ = Random.Range(-10f, 10f);
+
+
+        if (key == "enemyT1")
+        {
+            EnemyType1 enemyScript = obje.GetComponent<EnemyType1>();
+            enemyScript.SetPosition(new Vector3(randomZ, 0, 10));
+        }
+        else if (key == "enemyT2")
+        {
+            obje.transform.position = new Vector3(randomZ, 0, 10);
+        }
+        else
+        {
+            obje.transform.position = new Vector3(randomZ, 0, 6);
         }
     }
 }

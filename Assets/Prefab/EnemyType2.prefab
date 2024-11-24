@@ -125,7 +125,7 @@ MonoBehaviour:
   upperBoundZ: 10
   boundaryX: 13
   baseSpeed: 5
-  maxTurnAngle: 15
+  initialTurnAngle: 10
   explosionDistance: 0.8
   speedMultiplier: 1.5
   turnStrengthIncreaseInterval: 3

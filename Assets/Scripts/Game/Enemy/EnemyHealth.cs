@@ -6,9 +6,25 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float health;
+    [SerializeField] private float initialHealth;
+    private float health;
     [SerializeField] private string thisObjectKey;
     public TextMeshProUGUI textMeshProUGUI;
+
+    private void Start()
+    {
+        ResetSettings();
+    }
+    private void OnEnable()
+    {
+        ResetSettings();
+    }
+
+    private void ResetSettings()
+    {
+        health = initialHealth;
+        textMeshProUGUI.text = "Can: " + health;
+    }
 
 
     public void GiveDamage(float damage)

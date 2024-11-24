@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71b887b7f535934880b9d43d04dcdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 2
+  verticalSpeed: 3
   moveHeight: 5
   horizontalSpeed: 3
   horizontalMoveDistance: 3
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a98d3f4ba62e1f4ca588a94298fa689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  initialHealth: 100
   thisObjectKey: enemyT1
   textMeshProUGUI: {fileID: 5531994900257418892}
 --- !u!54 &-3532294884238957621

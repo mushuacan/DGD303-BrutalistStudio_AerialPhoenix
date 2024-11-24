@@ -936,7 +936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1263152919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1639,7 +1639,7 @@ MonoBehaviour:
   - key: enemyT1
     prefab: {fileID: 3779257546009648563, guid: d76f25c2b2461d448918d661cd852744,
       type: 3}
-    initialSize: 10
+    initialSize: 3
     comment: "Normal u\xE7ak"
   - key: bullet_eT1
     prefab: {fileID: 5630156879787195846, guid: 44cc2a93aa4a58f4faab2731547f2c04,

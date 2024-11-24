@@ -2,15 +2,19 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class EnemyType2 : MonoBehaviour
 {
+    [Header("Deðiþkenler")]
     [SerializeField] private Transform target;          // Hedef karakter (örneðin Player)
     [SerializeField] private float waitTime = 1f;       // Bekleme süresi
     [SerializeField] private float upperBoundZ = 10f;   // Yukarý çýkma z seviyesi
     [SerializeField] private float boundaryX = 13f;     // Kenardan çýkýþ X aralýðý
+
+    [Header("initial Deðiþkenler")]
     [SerializeField] private float baseSpeed = 5f;      // Karakterin baþlangýç hareket hýzý
-    [SerializeField] private float maxTurnAngle = 3f;   // Maksimum dönüþ açýsý
+    [SerializeField] private float initialTurnAngle = 3f;   // Maksimum dönüþ açýsý
     [SerializeField] private float explosionDistance = 2f; // Patlama mesafesi
     [SerializeField] private float speedMultiplier = 1.5f; // Hýzlanma çarpaný
     [SerializeField] private float turnStrengthIncreaseInterval = 3f; // Kaç saniyede dönüþ kabiliyeti artar
@@ -18,20 +22,12 @@ public class EnemyType2 : MonoBehaviour
     private Tween delayedTween;
 
     private float currentSpeed;
+    private float maxTurnAngle;
     private float turnStrengthTimer;
     private bool isDescending = true;                  // Baþlangýç iniþ durumu
 
     private void Start()
     {
-
-        isDescending = true;
-
-        // Baþlangýç hýzý ve dönüþ güçlendirme zamanlayýcýsý
-        currentSpeed = baseSpeed;
-
-        // Karakterin baþlangýç pozisyonunu rastgele ayarla
-        float randomX = Random.Range(-boundaryX, boundaryX);
-        transform.position = new Vector3(randomX, 0f, upperBoundZ);
 
         // Hedefi bul
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -39,7 +35,7 @@ public class EnemyType2 : MonoBehaviour
         {
             target = player.transform;
         }
-
+        ResetState();
         
     }
 
@@ -65,6 +61,10 @@ public class EnemyType2 : MonoBehaviour
                 if (delayedTween == null)
                 {
                     delayedTween = DOVirtual.DelayedCall(waitTime, StartCharging);
+                }
+                else
+                {
+                    Debug.Log("TweenError #1");
                 }
             }
             else
@@ -143,7 +143,15 @@ public class EnemyType2 : MonoBehaviour
 
     private void ResetState()
     {
-        isDescending = false;
+        isDescending = true;
+        delayedTween.Kill();
+        delayedTween = null;
+        currentSpeed = baseSpeed;
+        maxTurnAngle = initialTurnAngle;
+
+        // Karakterin baþlangýç pozisyonunu rastgele ayarla
+        float randomX = Random.Range(-boundaryX, boundaryX);
+        transform.position = new Vector3(randomX, 0f, upperBoundZ);
     }
 
 }
