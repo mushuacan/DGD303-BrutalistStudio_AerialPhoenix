@@ -566,10 +566,10 @@ MonoBehaviour:
       Continue: 0
     - SpeakerName: Komando
       Text: "\xC7al\u0131\u015Fan bir text kutusu mu..."
-      Continue: 1
+      Continue: 0
     - SpeakerName: Komando
       Text: Vayyy beh!!..
-      Continue: 1
+      Continue: 0
   - ChapterNumber: 2
     Messages:
     - SpeakerName: Komando
