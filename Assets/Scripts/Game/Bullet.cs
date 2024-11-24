@@ -62,7 +62,14 @@ public class Bullet : MonoBehaviour
             {
                 other.GetComponent<EnemyType2_Collision>().ExplodeByExternalFactors();
             }
-            if (other.gameObject.name == "EnemyType1(Clone)")
+            else if (other.gameObject.name == "EnemyType1(Clone)")
+            {
+                EnemyHealth enemyHealth = (EnemyHealth)other.gameObject.GetComponent<EnemyHealth>();
+                enemyHealth.GiveDamage(damage);
+                Debug.Log("Kurþun tarafýndan " + other.name + ", hasar gördü. Þimdi kurþun kendisini yok edecek.");
+                ReturnBullet();
+            }
+            else if (other.gameObject.name == "EnemyType3")
             {
                 EnemyHealth enemyHealth = (EnemyHealth)other.gameObject.GetComponent<EnemyHealth>();
                 enemyHealth.GiveDamage(damage);

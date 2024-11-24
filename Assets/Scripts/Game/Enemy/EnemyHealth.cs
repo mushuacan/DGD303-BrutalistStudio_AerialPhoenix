@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
     private void ResetSettings()
     {
         health = initialHealth;
+        if (textMeshProUGUI != null) 
         textMeshProUGUI.text = "Can: " + health;
     }
 
@@ -30,6 +31,7 @@ public class EnemyHealth : MonoBehaviour
     public void GiveDamage(float damage)
     {
         health -= damage;
+        if (textMeshProUGUI != null)
         textMeshProUGUI.text = "Can: " + health;
         CheckHealth();
     }

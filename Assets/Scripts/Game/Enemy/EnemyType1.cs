@@ -18,6 +18,8 @@ public class EnemyType1 : MonoBehaviour
     private Vector3 rightPosition;
     private bool movingRight = true;           // Sað-sol hareket yönü
 
+    private bool collisioned = false;
+
     private float shootingTimer;
 
     private void Start()
@@ -32,6 +34,7 @@ public class EnemyType1 : MonoBehaviour
 
     private void ResetSettings()
     {
+        collisioned = false;
         movingRight = true;
     }
 
@@ -57,19 +60,20 @@ public class EnemyType1 : MonoBehaviour
         }
     }
 
+
     private void HorizontalMovement()
     {
         // Sað-sol pozisyonuna göre hareket et
         if (movingRight)
         {
             transform.position += new Vector3(horizontalSpeed * Time.deltaTime, 0, 0);
-            if (transform.position.x >= rightPosition.x)
+            if (transform.position.x >= rightPosition.x && !collisioned)
                 movingRight = false; // Sola dön
         }
         else
         {
             transform.position -= new Vector3(horizontalSpeed * Time.deltaTime, 0, 0);
-            if (transform.position.x <= leftPosition.x)
+            if (transform.position.x <= leftPosition.x && !collisioned)
                 movingRight = true; // Saða dön
         }
     }
@@ -91,4 +95,32 @@ public class EnemyType1 : MonoBehaviour
         bullet.GetComponent<Bullet>().SetDirection(Vector3.back);
         bullet.transform.position = this.gameObject.transform.position;
     }
+
+    #region EnemyType1 Ýç içe giriþi engelleme merkezi
+    private void OnTriggerEnter(Collider other)
+    {
+        string otherName = other.gameObject.name;
+        if (collisioned == false && otherName == "EnemyType1(Clone)" || otherName == "EnemyType3")
+        {
+            movingRight = !movingRight;
+            collisioned = true;
+        }
+        //Debug.Log("Enemy 1 þununla karþýlaþtý ->" + other.gameObject.name);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        string objName = other.gameObject.name;
+        if (objName == "EnemyType1(Clone)")
+        {
+            collisioned = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        collisioned = false;
+        SetPosition(transform.position);
+    }
+    #endregion
 }

@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private MultiObjectPool objectPool;
     [SerializeField] private ActiveObjectCounter objectCounter;
+    [SerializeField] private int minEnemyCount;
 
 
     void Start()
@@ -14,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void WaitAndSpawnNewEnemies()
     {
-        if (EnemyCount() < 3)
+        if (EnemyCount() < minEnemyCount)
         {
             CreateEnemies();
         }

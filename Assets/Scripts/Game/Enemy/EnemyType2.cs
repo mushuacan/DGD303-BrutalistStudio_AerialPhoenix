@@ -64,7 +64,7 @@ public class EnemyType2 : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("TweenError #1");
+                    // Debug.Log("TweenError #1");
                 }
             }
             else
