@@ -120,5 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 10
-  maxRange: 30
+  maxRange: 20
   bulletObjectKey: bullet_eT1

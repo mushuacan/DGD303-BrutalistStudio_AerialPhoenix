@@ -6,10 +6,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private MultiObjectPool objectPool;
     [SerializeField] private ActiveObjectCounter objectCounter;
     [SerializeField] private int minEnemyCount;
+    [SerializeField] private bool spawnEnemies;
 
 
     void Start()
     {
+        if (spawnEnemies)
         DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 

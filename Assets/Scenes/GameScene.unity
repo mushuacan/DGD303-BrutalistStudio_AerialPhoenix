@@ -462,7 +462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a98d3f4ba62e1f4ca588a94298fa689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 1500
+  initialHealth: 3000
+  healthUnderDeath: 4.44
+  bomberLowHealth: 400
   thisObjectKey: enemyT3
   textMeshProUGUI: {fileID: 41121875}
 --- !u!114 &229307851
@@ -477,6 +479,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151eb0f9cbb02d847afc80eed78c2a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enterSpeed: 4
+  spawnHeight: 12
+  neededHeight: 5
+  attackRate: 1.3
+  angryAttackRate: 0.7
+  lowHealthAttackRate: 0.3
+  angerThreshold: 3
+  player: {fileID: 0}
+  bulletNameKey: bullet_eT1
+  angleBetweenBullets: 15
+  angerWarpSize: 4
+  currentState: 0
 --- !u!4 &229307852
 Transform:
   m_ObjectHideFlags: 0
@@ -2120,6 +2134,7 @@ MonoBehaviour:
   objectPool: {fileID: 2115229328}
   objectCounter: {fileID: 2115229332}
   minEnemyCount: 6
+  spawnEnemies: 0
 --- !u!114 &2115229331
 MonoBehaviour:
   m_ObjectHideFlags: 0

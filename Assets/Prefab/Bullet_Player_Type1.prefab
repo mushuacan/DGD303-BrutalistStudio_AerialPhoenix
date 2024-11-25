@@ -57,7 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 60
-  maxRange: 30
+  maxRange: 20
   bulletObjectKey: bullet_pT1
 --- !u!23 &6826742945435449150
 MeshRenderer:

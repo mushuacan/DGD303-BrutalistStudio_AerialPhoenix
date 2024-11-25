@@ -6,7 +6,7 @@ public class EnemyType1 : MonoBehaviour
 
     [Header("Movement Settings")]
     public float verticalSpeed = 2f;           // Aþaðýya hareket hýzý
-    public float moveHeight = 5f;              // Düþmanýn duracaðý yükseklik
+    public float neededHeight = 5f;            // Düþmanýn duracaðý yükseklik
     public float horizontalSpeed = 3f;         // Sað-sol hareket hýzý
     public float horizontalMoveDistance = 3f;  // Sað-sol hareket mesafesi
     [SerializeField] private float edgeX = 13f;
@@ -41,7 +41,7 @@ public class EnemyType1 : MonoBehaviour
     private void Update()
     {
         // Aþaðýya hareket etme ve belirtilen yüksekliðe ulaþýnca durma
-        if (transform.position.z > moveHeight)
+        if (transform.position.z > neededHeight)
         {
             transform.position -= new Vector3(0, 0, verticalSpeed * Time.deltaTime);
         }

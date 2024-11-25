@@ -7,6 +7,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private float initialHealth;
+    [SerializeField] private float healthUnderDeath = 4.44f;
+    [SerializeField] private float bomberLowHealth;
+    private EnemyType3 enemyType3;
     private float health;
     [SerializeField] private string thisObjectKey;
     public TextMeshProUGUI textMeshProUGUI;
@@ -25,6 +28,10 @@ public class EnemyHealth : MonoBehaviour
         health = initialHealth;
         if (textMeshProUGUI != null) 
         textMeshProUGUI.text = "Can: " + health;
+        if (thisObjectKey == "enemyT3")
+        {
+            enemyType3 = gameObject.GetComponent<EnemyType3>();
+        }
     }
 
 
@@ -38,9 +45,20 @@ public class EnemyHealth : MonoBehaviour
 
     public void CheckHealth()
     {
-        if (health <= 4.44)
+        if (health <= healthUnderDeath)
         {
             ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);
+        }
+        if (thisObjectKey == "enemyT3")
+        {
+            if (health <= bomberLowHealth)
+            {
+                if (enemyType3 != null)
+                {
+                    enemyType3.StateChanger(CharacterState.LowHealth);
+                }
+                else { Debug.LogError("EnemyType3 script null"); }
+            }
         }
     }
 }
