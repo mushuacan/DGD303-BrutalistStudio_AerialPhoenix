@@ -9,6 +9,7 @@ public class EnemyType1 : MonoBehaviour
     public float moveHeight = 5f;              // Düþmanýn duracaðý yükseklik
     public float horizontalSpeed = 3f;         // Sað-sol hareket hýzý
     public float horizontalMoveDistance = 3f;  // Sað-sol hareket mesafesi
+    [SerializeField] private float edgeX = 13f;
 
     [Header("Shooting Settings")]
     public GameObject bulletPrefab;            // Mermi prefab referansý
@@ -17,7 +18,6 @@ public class EnemyType1 : MonoBehaviour
     private Vector3 leftPosition;              // Sað-sol sýnýr pozisyonlarý
     private Vector3 rightPosition;
     private bool movingRight = true;           // Sað-sol hareket yönü
-
     private bool collisioned = false;
 
     private float shootingTimer;
@@ -76,6 +76,14 @@ public class EnemyType1 : MonoBehaviour
             if (transform.position.x <= leftPosition.x && !collisioned)
                 movingRight = true; // Saða dön
         }
+        if (transform.position.x >= edgeX)
+        {
+            movingRight = false;
+        }
+        else if (transform.position.x <= -edgeX)
+        {
+            movingRight = true;
+        }
     }
 
     public void SetPosition(Vector3 pozition)
@@ -114,6 +122,14 @@ public class EnemyType1 : MonoBehaviour
         if (objName == "EnemyType1(Clone)")
         {
             collisioned = true;
+            if (other.transform.position.x < transform.position.x && 0 < transform.position.x)
+            {
+                transform.position = new Vector3(transform.position.x + 0.1f, transform.position.y, transform.position.z);
+            }
+            if (other.transform.position.x > transform.position.x && 0 > transform.position.x)
+            {
+                transform.position = new Vector3(transform.position.x - 0.1f, transform.position.y, transform.position.z);
+            }
         }
     }
 
