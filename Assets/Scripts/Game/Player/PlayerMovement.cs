@@ -63,9 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude > 0.1f) // Eðer hedefe yakýn deðilse
         {
-            Quaternion toRotation = Quaternion.LookRotation(direction);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, toRotation, Time.deltaTime * maxMoveSpeed));
-
             // Hareketi Rigidbody ile uygula
             Vector3 moveDirection = direction.normalized * maxMoveSpeed * Time.fixedDeltaTime;
             Vector3 nextPosition = rb.position + moveDirection;
@@ -75,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(nextPosition);
         }
     }
+
 
     private void CollectKeyboardInput()
     {
