@@ -83,9 +83,11 @@ public class MultiObjectPool : MonoBehaviour
 
         obj.SetActive(true);
 
-        // Varsayýlan pozisyon ve rotasyon
-        obj.transform.position = position == default ? Vector3.zero : position;
-        obj.transform.rotation = rotation == default ? Quaternion.identity : rotation;
+        if (key != "hurda")
+        {
+            obj.transform.position = position == default ? Vector3.zero : position;
+            obj.transform.rotation = rotation == default ? Quaternion.identity : rotation;
+        }
 
         return obj;
     }

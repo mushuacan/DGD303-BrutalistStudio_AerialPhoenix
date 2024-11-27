@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public float playerHealth = 100f;
+    public float maxPlayerHealth;
     public TextMeshProUGUI textMeshProUGUI;
 
     // Start is called before the first frame update
@@ -30,5 +31,15 @@ public class PlayerHealth : MonoBehaviour
         {
             // End Game
         }
+    }
+
+    public void HealPlayer(float heal)
+    {
+        playerHealth += heal;
+        if (playerHealth >= maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+        }
+        textMeshProUGUI.text = "Can: " + playerHealth;
     }
 }

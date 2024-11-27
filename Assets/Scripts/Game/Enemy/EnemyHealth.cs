@@ -47,7 +47,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health <= healthUnderDeath)
         {
-            ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);
+            Die();
         }
         if (thisObjectKey == "enemyT3")
         {
@@ -60,5 +60,12 @@ public class EnemyHealth : MonoBehaviour
                 else { Debug.LogError("EnemyType3 script null"); }
             }
         }
+    }
+
+    public void Die()
+    {
+        GameObject obje = ObjectPoolSingleton.Instance.GetObject("hurda");
+        obje.transform.position = this.transform.position;
+        ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);
     }
 }
