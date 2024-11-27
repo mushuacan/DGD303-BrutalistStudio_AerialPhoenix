@@ -108,7 +108,7 @@ public class EnemyType1 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string otherName = other.gameObject.name;
-        if (collisioned == false && otherName == "EnemyType1(Clone)" || otherName == "EnemyType3")
+        if (collisioned == false && otherName == "EnemyType1(Clone)" || otherName == "EnemyType3(Clone)")
         {
             movingRight = !movingRight;
             collisioned = true;

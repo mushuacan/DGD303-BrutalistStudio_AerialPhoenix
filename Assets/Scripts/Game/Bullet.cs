@@ -69,7 +69,7 @@ public class Bullet : MonoBehaviour
                 Debug.Log("Kurþun tarafýndan " + other.name + ", hasar gördü. Þimdi kurþun kendisini yok edecek.");
                 ReturnBullet();
             }
-            else if (other.gameObject.name == "EnemyType3")
+            else if (other.gameObject.name == "EnemyType3(Clone)")
             {
                 EnemyHealth enemyHealth = (EnemyHealth)other.gameObject.GetComponent<EnemyHealth>();
                 enemyHealth.GiveDamage(damage);

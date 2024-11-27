@@ -1,45 +1,99 @@
 using DG.Tweening;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private MultiObjectPool objectPool;
     [SerializeField] private ActiveObjectCounter objectCounter;
-    [SerializeField] private int minEnemyCount;
+    [SerializeField] private int maxEnemyCount;
     [SerializeField] private bool spawnEnemies;
 
+    private Tween spawnerTween;
+
+    [Header("Lütfen ilk elemanýný 0 býrakýn")]
+    [Tooltip("Kaç düþman ölünce diðer faza geçilecek?")]
+    public List<int> phasesThreshold = new List<int>();
+    [SerializeField] int currentPhase;
+
+    [SerializeField] private int totalEnemySpawned;
+    [SerializeField] private int totalEnemyDied;
+    [SerializeField] private int enemyCountNOW;
 
     void Start()
     {
+        currentPhase = 1;
         if (spawnEnemies)
-        DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
+            spawnerTween = DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 
     private void WaitAndSpawnNewEnemies()
     {
-        if (EnemyCount() < minEnemyCount)
+        if (EnemyCount() >= maxEnemyCount)
         {
-            CreateEnemies();
+            spawnerTween = DOVirtual.DelayedCall(2, WaitAndSpawnNewEnemies);
+            return;
         }
 
-        DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
+        PhaseArranger();
+
+        CreateEnemies();
+
+        spawnerTween = DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
     }
 
     private void CreateEnemies()
     {
-        int randNum = Random.Range(1, 100);
+        if (ObjectPoolSingleton.Instance.GetEnemyCountInfo(3) >= phasesThreshold[currentPhase])
+            return;
 
-        if (randNum <= 20)
+        switch (currentPhase)
         {
-            SpawnEnemy("enemyT2", 3);
+            case 1:
+                SpawnEnemy("enemyT1");
+                break;
+
+            case 2:
+                SpawnEnemy("enemyT2");
+                break;
+
+            case 3:
+                int randNum = Random.Range(1, 10);
+                if (randNum <= 2)
+                {
+                    SpawnEnemy("enemyT2", 3);
+                }
+                else if (randNum <= 7)
+                {
+                    SpawnEnemy("enemyT1");
+                }
+                else
+                {
+                    SpawnEnemy("enemyT2");
+                }
+                break;
+
+            case 4:
+                SpawnEnemy("enemyT3");
+                break;
         }
-        else if (randNum <= 70)
+    }
+
+    private void PhaseArranger()
+    {
+        totalEnemySpawned = ObjectPoolSingleton.Instance.GetEnemyCountInfo(3);
+        totalEnemyDied = ObjectPoolSingleton.Instance.GetEnemyCountInfo(2);
+        enemyCountNOW = EnemyCount();
+
+        if(totalEnemyDied >= phasesThreshold[currentPhase]) 
         {
-            SpawnEnemy("enemyT1", 1);
+            currentPhase++;
         }
-        else
+        if (phasesThreshold.Count < currentPhase)
         {
-            SpawnEnemy("enemyT2", 1);
+            spawnerTween.Kill();
+            Debug.LogError("Fazlar bitti");
         }
     }
 
