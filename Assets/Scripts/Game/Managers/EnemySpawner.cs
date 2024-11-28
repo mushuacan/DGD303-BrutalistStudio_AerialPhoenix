@@ -64,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
 
             case 3:
                 int randNum = Random.Range(1, 10);
-                if (randNum <= 2)
+                if (randNum <= 2 && (phasesThreshold[currentPhase] - 4) >= totalEnemySpawned)
                 {
                     SpawnEnemy("enemyT2", 3);
                 }
