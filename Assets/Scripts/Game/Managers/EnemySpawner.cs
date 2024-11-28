@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,11 +13,14 @@ public class EnemySpawner : MonoBehaviour
 
     private Tween spawnerTween;
 
+    [Header("Savaþ fazlarý için gerekli düþman öldürme eþikleri")]
     [Header("Lütfen ilk elemanýný 0 býrakýn")]
     [Tooltip("Kaç düþman ölünce diðer faza geçilecek?")]
     public List<int> phasesThreshold = new List<int>();
+    public List<int> phasesMaxEnemyCount = new List<int>();
+    public TextMeshProUGUI phaseText;
+    public List<string> phaseNames = new List<string>();
     [SerializeField] int currentPhase;
-
     [SerializeField] private int totalEnemySpawned;
     [SerializeField] private int totalEnemyDied;
     [SerializeField] private int enemyCountNOW;
@@ -95,6 +99,8 @@ public class EnemySpawner : MonoBehaviour
             spawnerTween.Kill();
             Debug.LogError("Fazlar bitti");
         }
+        maxEnemyCount = phasesMaxEnemyCount[currentPhase];
+        phaseText.text = "Faz -> " + phaseNames[currentPhase];
     }
 
     private int EnemyCount()
