@@ -1,151 +1,182 @@
+// Optimized by ChatGPT Code Copilot under mushu's supervision
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyType3 : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private float enterSpeed;
     [SerializeField] private float spawnHeight;
     [SerializeField] private float neededHeight;
+
+    [Header("Attack Settings")]
     [SerializeField] private float attackRate;
-    private float attackTimer;
     [SerializeField] private float angryAttackRate;
-    private int angerTimer;
     [SerializeField] private float lowHealthAttackRate;
     [SerializeField] private int angerThreshold;
-    public GameObject player;
-    [SerializeField] private string bulletNameKey;
     [SerializeField] private float angleBetweenBullets;
     [SerializeField] private float angerWarpSize;
+
+    [Header("Bullet Settings")]
+    [SerializeField] private string bulletNameKey;
+
+    [Header("References")]
+    public GameObject player;
+
     public CharacterState currentState;
 
+    private float attackTimer;
+    private int angerTimer;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         ResetSettings();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (currentState == CharacterState.Coming)
+        HandleStateLogic();
+    }
+
+    private void HandleStateLogic()
+    {
+        switch (currentState)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, (transform.position.z + (-1 * enterSpeed * Time.deltaTime)));
-            if (transform.position.z <= neededHeight)
+            case CharacterState.Coming:
+                HandleComingState();
+                break;
+
+            case CharacterState.Idle:
+                HandleIdleState();
+                break;
+
+            case CharacterState.Angry:
+                HandleAngryState();
+                break;
+
+            case CharacterState.LowHealth:
+                HandleLowHealthState();
+                break;
+
+            case CharacterState.Dead:
+                Debug.Log("Bomber is dead");
+                break;
+
+            default:
+                Debug.LogWarning("Invalid state in EnemyType3");
+                break;
+        }
+    }
+
+    private void HandleComingState()
+    {
+        transform.position += Vector3.back * enterSpeed * Time.deltaTime;
+
+        if (transform.position.z <= neededHeight)
+        {
+            currentState = CharacterState.Idle;
+        }
+    }
+
+    private void HandleIdleState()
+    {
+        if (HandleAttack(attackRate))
+        {
+            angerTimer++;
+
+            if (angerTimer >= angerThreshold)
+            {
+                currentState = CharacterState.Angry;
+                angerTimer = 0;
+            }
+        }
+    }
+
+    private void HandleAngryState()
+    {
+        if (HandleAttack(angryAttackRate, true))
+        {
+            angerTimer++;
+
+            if (angerTimer >= angerThreshold)
             {
                 currentState = CharacterState.Idle;
+                angerTimer = 0;
             }
-        }
-        else if (currentState == CharacterState.Idle)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackRate)
-            {
-                Attack();
-                attackTimer = 0;
-                angerTimer++;
-                if (angerTimer >= angerThreshold)
-                {
-                    currentState = CharacterState.Angry;
-                    angerTimer = 0;
-                }
-            }
-        }
-        else if (currentState == CharacterState.Angry)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= angryAttackRate)
-            {
-                Attack(true); // 3 times maybe ?
-                angerTimer++;
-                attackTimer = 0;
-                if (angerTimer >= angerThreshold)
-                {
-                    currentState = CharacterState.Idle;
-                    angerTimer = 0;
-                }
-            }
-        }
-        else if (currentState == CharacterState.LowHealth)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= lowHealthAttackRate)
-            {
-                Attack(true); // 3 times maybe ?
-                attackTimer = 0;
-            }
-        }
-        else if (currentState == CharacterState.Dead)
-        {
-            Debug.Log("Bomber is dead");
-        }
-        else
-        {
-            Debug.LogWarning("EnemyType3'ün Enum'unda hata var.");
         }
     }
 
-    public void StateChanger(CharacterState charState)
+    private void HandleLowHealthState()
     {
-        currentState = charState;
+        HandleAttack(lowHealthAttackRate, true);
     }
 
-    private void OnEnable()
+    private bool HandleAttack(float rate, bool angerWarp = false)
     {
-        ResetSettings();
+        attackTimer += Time.deltaTime;
+
+        if (attackTimer >= rate)
+        {
+            attackTimer = 0;
+            Attack(angerWarp);
+            return true;
+        }
+
+        return false;
     }
+
+    private void Attack(bool angerWarp = false)
+    {
+        var playerPosition = player.transform.position;
+
+        if (angerWarp)
+        {
+            playerPosition += new Vector3(
+                Random.Range(-angerWarpSize, angerWarpSize),
+                0,
+                Random.Range(-angerWarpSize, angerWarpSize)
+            );
+        }
+
+        SpawnBullet(Vector3.zero, 0, playerPosition); // Center bullet
+        SpawnBullet(-Vector3.right, -angleBetweenBullets, playerPosition); // Left bullet
+        SpawnBullet(Vector3.right, angleBetweenBullets, playerPosition); // Right bullet
+    }
+
+    private void SpawnBullet(Vector3 offset, float angleOffset, Vector3 targetPosition)
+    {
+        GameObject bullet = TakeBullet();
+        bullet.transform.position = transform.position + offset;
+
+        var direction = (targetPosition - bullet.transform.position).normalized;
+        bullet.transform.rotation = Quaternion.LookRotation(direction);
+        bullet.transform.Rotate(0, angleOffset, 0);
+
+        bullet.GetComponent<Bullet>().SetDirection(bullet.transform.forward);
+    }
+
+    private GameObject TakeBullet()
+    {
+        var bullet = ObjectPoolSingleton.Instance.GetObject(bulletNameKey);
+        bullet.transform.position = transform.position;
+        bullet.GetComponent<Bullet>().SetDirection(Vector3.back);
+        return bullet;
+    }
+
     private void ResetSettings()
     {
         transform.position = new Vector3(0, 0, spawnHeight);
         currentState = CharacterState.Coming;
         attackTimer = 0;
+        angerTimer = 0;
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    private void Attack(bool angerWarp = false)
+
+    public void StateChanger(CharacterState charState)
     {
-        GameObject bullet1 = TakeBullet();
-        GameObject bullet2 = TakeBullet();
-        GameObject bullet3 = TakeBullet();
-
-        Vector3 playerPosition = player.transform.position;
-
-        if (angerWarp)
-        {
-            float angerWarpX = Random.Range(-angerWarpSize, angerWarpSize);
-            float angerWarpZ = Random.Range(-angerWarpSize, angerWarpSize);
-            playerPosition = playerPosition + new Vector3(angerWarpX, 0, angerWarpZ);
-        }
-
-        // Bullet2'yi yerleþtir
-        bullet2.transform.position = transform.position + Vector3.forward;
-        bullet2.transform.LookAt(playerPosition);
-        bullet2.GetComponent<Bullet>().SetDirection(bullet2.transform.forward);
-
-        // Bullet1'i Bullet2'nin soluna yerleþtir ve döndür
-        Vector3 leftOffset = -bullet2.transform.right;
-        bullet1.transform.position = bullet2.transform.position + leftOffset;
-        bullet1.transform.rotation = bullet2.transform.rotation;
-        bullet1.transform.Rotate(0, -angleBetweenBullets, 0);
-        bullet1.GetComponent<Bullet>().SetDirection(bullet1.transform.forward);
-
-        // Bullet3'ü Bullet2'nin saðýna yerleþtir ve döndür
-        Vector3 rightOffset = bullet2.transform.right;
-        bullet3.transform.position = bullet2.transform.position + rightOffset;
-        bullet3.transform.rotation = bullet2.transform.rotation;
-        bullet3.transform.Rotate(0, angleBetweenBullets, 0);
-        bullet3.GetComponent<Bullet>().SetDirection(bullet3.transform.forward);
-
-        // A little bit hard coded.
-    }
-
-
-    private GameObject TakeBullet()
-    {
-        GameObject bullet = ObjectPoolSingleton.Instance.GetObject(bulletNameKey);
-        bullet.GetComponent<Bullet>().SetDirection(Vector3.back);
-        bullet.transform.position = this.gameObject.transform.position;
-        return bullet;
+        currentState = charState;
     }
 }
 

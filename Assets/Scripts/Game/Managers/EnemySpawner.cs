@@ -1,55 +1,78 @@
+// Optimized by ChatGPT Code Copilot under mushu's supervision
+
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Spawner Settings")]
     [SerializeField] private MultiObjectPool objectPool;
     [SerializeField] private ActiveObjectCounter objectCounter;
     [SerializeField] private int maxEnemyCount;
     [SerializeField] private bool spawnEnemies;
 
+    [Header("Phase Settings")]
+    [Tooltip("Lütfen ilk elemanýný 0 býrakýn.")]
+    [SerializeField] private List<int> phasesThreshold = new List<int> { 0 };
+    [SerializeField] private List<int> phasesMaxEnemyCount = new List<int>();
+    [SerializeField] private List<string> phaseNames = new List<string>();
+    [SerializeField] private TextMeshProUGUI phaseText;
+
+    [Header("Internal Variables")]
+    [SerializeField] private int currentPhase = 1;
+    private int totalEnemySpawned;
+    private int totalEnemyDied;
+    private int enemyCountNOW;
+
     private Tween spawnerTween;
 
-    [Header("Savaþ fazlarý için gerekli düþman öldürme eþikleri")]
-    [Header("Lütfen ilk elemanýný 0 býrakýn")]
-    [Tooltip("Kaç düþman ölünce diðer faza geçilecek?")]
-    public List<int> phasesThreshold = new List<int>();
-    public List<int> phasesMaxEnemyCount = new List<int>();
-    public TextMeshProUGUI phaseText;
-    public List<string> phaseNames = new List<string>();
-    [SerializeField] int currentPhase;
-    [SerializeField] private int totalEnemySpawned;
-    [SerializeField] private int totalEnemyDied;
-    [SerializeField] private int enemyCountNOW;
+    private const float SpawnPositionZ_T1 = 10f;
+    private const float SpawnPositionZ_T2 = 10f;
+    private const float SpawnPositionZ_T3 = 6f;
+    private const float SpawnDelay = 1f;
+    private const float PhaseCheckDelay = 2f;
 
     void Start()
     {
-        currentPhase = 1;
         if (spawnEnemies)
-            spawnerTween = DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
+        {
+            StartSpawning();
+        }
+        else
+        {
+            TestSpawn();
+        }
     }
 
-    private void WaitAndSpawnNewEnemies()
+    private void StartSpawning()
+    {
+        spawnerTween = DOVirtual.DelayedCall(SpawnDelay, SpawnEnemiesLoop);
+    }
+
+    private void TestSpawn()
+    {
+        SpawnEnemy("enemyT3");
+    }
+
+    private void SpawnEnemiesLoop()
     {
         if (EnemyCount() >= maxEnemyCount)
         {
-            spawnerTween = DOVirtual.DelayedCall(2, WaitAndSpawnNewEnemies);
+            spawnerTween = DOVirtual.DelayedCall(PhaseCheckDelay, SpawnEnemiesLoop);
             return;
         }
 
         PhaseArranger();
-
         CreateEnemies();
 
-        spawnerTween = DOVirtual.DelayedCall(1, WaitAndSpawnNewEnemies);
+        spawnerTween = DOVirtual.DelayedCall(SpawnDelay, SpawnEnemiesLoop);
     }
 
     private void CreateEnemies()
     {
-        if (ObjectPoolSingleton.Instance.GetEnemyCountInfo(3) >= phasesThreshold[currentPhase])
+        if (totalEnemySpawned >= phasesThreshold[currentPhase])
             return;
 
         switch (currentPhase)
@@ -63,24 +86,30 @@ public class EnemySpawner : MonoBehaviour
                 break;
 
             case 3:
-                int randNum = Random.Range(1, 10);
-                if (randNum <= 2 && (phasesThreshold[currentPhase] - 4) >= totalEnemySpawned)
-                {
-                    SpawnEnemy("enemyT2", 3);
-                }
-                else if (randNum <= 7)
-                {
-                    SpawnEnemy("enemyT1");
-                }
-                else
-                {
-                    SpawnEnemy("enemyT2");
-                }
+                HandlePhaseThreeEnemySpawning();
                 break;
 
             case 4:
                 SpawnEnemy("enemyT3");
                 break;
+        }
+    }
+
+    private void HandlePhaseThreeEnemySpawning()
+    {
+        int randNum = Random.Range(1, 10);
+
+        if (randNum <= 2 && (phasesThreshold[currentPhase] - 4) >= totalEnemySpawned)
+        {
+            SpawnEnemy("enemyT2", 3);
+        }
+        else if (randNum <= 7)
+        {
+            SpawnEnemy("enemyT1");
+        }
+        else
+        {
+            SpawnEnemy("enemyT2");
         }
     }
 
@@ -90,17 +119,27 @@ public class EnemySpawner : MonoBehaviour
         totalEnemyDied = ObjectPoolSingleton.Instance.GetEnemyCountInfo(2);
         enemyCountNOW = EnemyCount();
 
-        if(totalEnemyDied >= phasesThreshold[currentPhase]) 
+        if (totalEnemyDied >= phasesThreshold[currentPhase])
         {
             currentPhase++;
+            if (currentPhase >= phasesThreshold.Count)
+            {
+                spawnerTween.Kill();
+                Debug.LogError("Tüm fazlar tamamlandý.");
+                return;
+            }
         }
-        if (phasesThreshold.Count < currentPhase)
-        {
-            spawnerTween.Kill();
-            Debug.LogError("Fazlar bitti");
-        }
+
         maxEnemyCount = phasesMaxEnemyCount[currentPhase];
-        phaseText.text = "Faz -> " + phaseNames[currentPhase];
+        UpdatePhaseText();
+    }
+
+    private void UpdatePhaseText()
+    {
+        if (phaseText != null && currentPhase < phaseNames.Count)
+        {
+            phaseText.text = $"Faz -> {phaseNames[currentPhase]}";
+        }
     }
 
     private int EnemyCount()
@@ -112,32 +151,31 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < howMany; i++)
         {
-            GameObject obje = ObjectPoolSingleton.Instance.GetObject(key);
-            if (obje != null)
+            GameObject enemy = ObjectPoolSingleton.Instance.GetObject(key);
+            if (enemy != null)
             {
-                SetPositionOfEnemies(key, obje);
-
+                SetEnemyPosition(key, enemy);
             }
         }
     }
 
-    private void SetPositionOfEnemies(string key, GameObject obje)
+    private void SetEnemyPosition(string key, GameObject enemy)
     {
         float randomZ = Random.Range(-10f, 10f);
+        Vector3 spawnPosition = key switch
+        {
+            "enemyT1" => new Vector3(randomZ, 0, SpawnPositionZ_T1),
+            "enemyT2" => new Vector3(randomZ, 0, SpawnPositionZ_T2),
+            "enemyT3" => new Vector3(randomZ, 0, SpawnPositionZ_T3),
+            _ => enemy.transform.position
+        };
 
+        enemy.transform.position = spawnPosition;
 
         if (key == "enemyT1")
         {
-            EnemyType1 enemyScript = obje.GetComponent<EnemyType1>();
-            enemyScript.SetPosition(new Vector3(randomZ, 0, 10));
-        }
-        else if (key == "enemyT2")
-        {
-            obje.transform.position = new Vector3(randomZ, 0, 10);
-        }
-        else
-        {
-            obje.transform.position = new Vector3(randomZ, 0, 6);
+            var enemyScript = enemy.GetComponent<EnemyType1>();
+            enemyScript?.SetPosition(spawnPosition);
         }
     }
 }

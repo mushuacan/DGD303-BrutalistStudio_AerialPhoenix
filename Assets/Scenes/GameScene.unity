@@ -1836,7 +1836,6 @@ MonoBehaviour:
   spawnEnemies: 1
   phasesThreshold: 000000000400000008000000140000001500000064000000
   phasesMaxEnemyCount: 000000000200000004000000030000000100000000000000
-  phaseText: {fileID: 1113268453}
   phaseNames:
   - '-'
   - Sniper
@@ -1844,10 +1843,8 @@ MonoBehaviour:
   - Sniper & Suicader
   - Miniboss "Bomber"
   - '-'
+  phaseText: {fileID: 1113268453}
   currentPhase: 0
-  totalEnemySpawned: 0
-  totalEnemyDied: 0
-  enemyCountNOW: 0
 --- !u!114 &2115229331
 MonoBehaviour:
   m_ObjectHideFlags: 0
