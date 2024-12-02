@@ -5,6 +5,7 @@ public class EnemyType2_Collision : MonoBehaviour
 {
     private GameObject player;
     [SerializeField] private float triggerDistance = 100f;
+    [SerializeField] private float damageToPlayer;
     private float distanceToPlayer;
     private Tween delayedExplosionTween;
 
@@ -38,7 +39,7 @@ public class EnemyType2_Collision : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerHealth playerHealth = (PlayerHealth) other.gameObject.GetComponent<PlayerHealth>();
-            playerHealth.DamagePlayer(20f);
+            playerHealth.DamagePlayer(damageToPlayer);
             ExplodeYourself();
         }
         else if (other.gameObject.CompareTag("Enemy"))

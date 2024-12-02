@@ -224,9 +224,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalSpeed: 3
-  moveHeight: 5
+  neededHeight: 5
   horizontalSpeed: 3
   horizontalMoveDistance: 3
+  edgeX: 13
   bulletPrefab: {fileID: 0}
   shootingInterval: 1
 --- !u!114 &5324759494382762057
@@ -242,6 +243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 100
+  healthUnderDeath: 4.44
+  bomberLowHealth: 0
   thisObjectKey: enemyT1
   textMeshProUGUI: {fileID: 5531994900257418892}
 --- !u!54 &-3532294884238957621

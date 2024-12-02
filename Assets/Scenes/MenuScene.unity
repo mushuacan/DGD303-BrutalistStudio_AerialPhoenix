@@ -600,7 +600,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 228295152}
-  m_Father: {fileID: 1406930381}
+  m_Father: {fileID: 713846057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -653,7 +653,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1406930385}
         m_TargetAssemblyTypeName: creditmenu, Assembly-CSharp
-        m_MethodName: ShowCredits
+        m_MethodName: ShowMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -925,7 +925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &713846057
 RectTransform:
   m_ObjectHideFlags: 0
@@ -946,6 +946,7 @@ RectTransform:
   - {fileID: 608124087}
   - {fileID: 71327146}
   - {fileID: 976898980}
+  - {fileID: 578877276}
   m_Father: {fileID: 1406930381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1727,7 +1728,6 @@ RectTransform:
   m_Children:
   - {fileID: 363221317}
   - {fileID: 713846057}
-  - {fileID: 578877276}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

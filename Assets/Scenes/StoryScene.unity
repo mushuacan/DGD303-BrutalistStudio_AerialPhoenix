@@ -373,8 +373,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Deneme yap\u0131yor olmama bunu kullanmayaca\u011F\u0131m\u0131z anlam\u0131na
-    gelir gibiydi"
+  m_text: "Deneme yap\u0131yor olmam\u0131z bunu ekleyece\u011Fimiz anlam\u0131na
+    gelmiyor ancak eklemeyi isterdik zannediyorum."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 44e1d0171fef88042a7a0d96cd7139b7, type: 2}
   m_sharedMaterial: {fileID: -5398642098595528756, guid: 44e1d0171fef88042a7a0d96cd7139b7,
@@ -559,7 +559,7 @@ MonoBehaviour:
   - ChapterNumber: 1
     Messages:
     - SpeakerName: Komando
-      Text: Merhaba asker
+      Text: "Merhaba asker\n\n(L\xFCtfen devam etmek i\xE7in sol t\u0131klay\u0131n\u0131z)"
       Continue: 0
     - SpeakerName: Komando
       Text: "Nas\u0131ls\u0131n, nas\u0131 gidiyor hayat"
@@ -573,7 +573,7 @@ MonoBehaviour:
   - ChapterNumber: 2
     Messages:
     - SpeakerName: Komando
-      Text: "Naber lan gebe\u015F kaplumba\u011Fa"
+      Text: "Naber lan kardeeee\u015F"
       Continue: 0
     - SpeakerName: Komando
       Text: "\xC7al\u0131\u015F\u0131yor mu la bu \u015Fey"

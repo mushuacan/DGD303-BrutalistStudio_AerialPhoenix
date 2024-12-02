@@ -269,14 +269,14 @@ MonoBehaviour:
   enterSpeed: 4
   spawnHeight: 12
   neededHeight: 5
-  attackRate: 1.3
-  angryAttackRate: 0.7
-  lowHealthAttackRate: 0.3
+  attackRate: 1.4
+  angryAttackRate: 0.5
+  lowHealthAttackRate: 0.4
   angerThreshold: 3
-  player: {fileID: 0}
-  bulletNameKey: bullet_eT1
-  angleBetweenBullets: 15
+  angleBetweenBullets: 18
   angerWarpSize: 4
+  bulletNameKey: bullet_eT1
+  player: {fileID: 0}
   currentState: 0
 --- !u!114 &4836217932045016237
 MonoBehaviour:
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 3000
   healthUnderDeath: 4.44
-  bomberLowHealth: 500
+  bomberLowHealth: 300
   thisObjectKey: enemyT3
   textMeshProUGUI: {fileID: 3717017731172439873}
 --- !u!136 &1169242527434784723

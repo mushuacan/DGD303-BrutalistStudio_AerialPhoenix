@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerDistance: 2
+  damageToPlayer: 30
 --- !u!54 &5950178092387565174
 Rigidbody:
   m_ObjectHideFlags: 0
