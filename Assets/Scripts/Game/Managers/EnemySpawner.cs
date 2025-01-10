@@ -174,7 +174,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (key == "enemyT1")
         {
-            var enemyScript = enemy.GetComponent<EnemyType1>();
+            var enemyScript = enemy.GetComponent<EnemyType1_Movement>();
             enemyScript?.SetPosition(spawnPosition);
         }
     }

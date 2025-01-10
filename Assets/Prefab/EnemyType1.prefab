@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 9053938607786849612}
   - component: {fileID: 6957237337379333014}
   - component: {fileID: 2131930165245959131}
+  - component: {fileID: 4087356962842053293}
   - component: {fileID: 5324759494382762057}
   - component: {fileID: -3532294884238957621}
   m_Layer: 0
@@ -228,8 +229,22 @@ MonoBehaviour:
   horizontalSpeed: 3
   horizontalMoveDistance: 3
   edgeX: 13
-  bulletPrefab: {fileID: 0}
-  shootingInterval: 1
+  belirtgi: {fileID: 4646903804489429755, guid: 7d94c7bbab795a34a88d694d264b703f,
+    type: 3}
+--- !u!114 &4087356962842053293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779257546009648563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7673872d8157c4e89c78da32712a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletType: bullet_eT2
+  shootingInterval: 0.42
 --- !u!114 &5324759494382762057
 MonoBehaviour:
   m_ObjectHideFlags: 0

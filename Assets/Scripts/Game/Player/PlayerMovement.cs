@@ -15,13 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
 
     private Vector3 targetPosition;
-    private bool isMouseControlActive;
+    [SerializeField] private bool isMouseControlActive;
 
     private Vector3 movementInput;
 
     private void Start()
     {
-        isMouseControlActive = false;
+        //isMouseControlActive = false;
     }
 
     void Update()

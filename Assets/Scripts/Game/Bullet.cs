@@ -58,11 +58,14 @@ public class Bullet : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Enemy") && gameObject.tag == "Bullet_Player")
         {
-            if (other.gameObject.name == "EnemyType2(Clone)")
+            if (other.gameObject.name == "EnemyType1(Clone)")
             {
-                other.GetComponent<EnemyType2_Collision>().ExplodeByExternalFactors();
+                EnemyHealth enemyHealth = (EnemyHealth)other.gameObject.GetComponent<EnemyHealth>();
+                enemyHealth.GiveDamage(damage);
+                Debug.Log("Kurþun tarafýndan " + other.name + ", hasar gördü. Þimdi kurþun kendisini yok edecek.");
+                ReturnBullet();
             }
-            else if (other.gameObject.name == "EnemyType1(Clone)")
+            else if (other.gameObject.name == "EnemyType2(Clone)")
             {
                 EnemyHealth enemyHealth = (EnemyHealth)other.gameObject.GetComponent<EnemyHealth>();
                 enemyHealth.GiveDamage(damage);

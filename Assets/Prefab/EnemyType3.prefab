@@ -275,7 +275,7 @@ MonoBehaviour:
   angerThreshold: 3
   angleBetweenBullets: 18
   angerWarpSize: 4
-  bulletNameKey: bullet_eT1
+  bulletNameKey: bullet_eT2
   player: {fileID: 0}
   currentState: 0
 --- !u!114 &4836217932045016237

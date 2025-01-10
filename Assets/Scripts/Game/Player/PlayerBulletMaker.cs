@@ -8,13 +8,14 @@ public class PlayerBulletMaker : MonoBehaviour
 
     [SerializeField] private float FireTime;
 
-    private string bulletType;
+    [SerializeField] private string bulletType;
+
     private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        bulletType = "bullet_pT1";
+
     }
 
     // Update is called once per frame

@@ -14,6 +14,11 @@ public class ActiveObjectCounter : MonoBehaviour
         excludedNamesSet = new HashSet<string>(excludedNamesArray);
     }
 
+    private void Update()
+    {
+
+    }
+
     public int GetActiveObjectCount()
     {
         int activeCount = 0;
