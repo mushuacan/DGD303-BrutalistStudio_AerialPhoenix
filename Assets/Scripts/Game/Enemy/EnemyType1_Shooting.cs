@@ -6,6 +6,7 @@ public class EnemyType1_Shooting : MonoBehaviour
 {
     [Header("Shooting Settings")]
     [SerializeField] private string bulletType;
+    [SerializeField] private Transform spawnPoint;
     public float shootingInterval = 1f;        // Shooting interval
 
     private float shootingTimer;
@@ -39,7 +40,7 @@ public class EnemyType1_Shooting : MonoBehaviour
             if (bulletComponent != null)
             {
                 bulletComponent.SetDirection(Vector3.back);
-                bullet.transform.position = transform.position;
+                bullet.transform.position = spawnPoint.position;
             }
         }
     }
