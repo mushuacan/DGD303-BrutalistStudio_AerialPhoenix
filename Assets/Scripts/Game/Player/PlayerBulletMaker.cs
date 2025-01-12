@@ -10,6 +10,8 @@ public class PlayerBulletMaker : MonoBehaviour
 
     [SerializeField] private string bulletType;
 
+    [SerializeField] private AudioSource bulletSound;
+
     private float timer;
 
     // Start is called before the first frame update
@@ -30,6 +32,10 @@ public class PlayerBulletMaker : MonoBehaviour
             bullet.tag = "Bullet_Player";
 
             timer = 0;
+            if (bulletSound != null && bulletSound.enabled)
+            {
+                bulletSound.Play();
+            }
         }
     }
 }
