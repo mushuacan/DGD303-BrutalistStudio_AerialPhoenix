@@ -56,7 +56,7 @@ public class EnemyType1_Movement : MonoBehaviour
     }
     public void CreateBelirtgi()
     {
-        Instantiate(belirtgi, transform.position, Quaternion.identity);
+        //Instantiate(belirtgi, transform.position, Quaternion.identity);
     }
 
     private void HandleHorizontalMovement()

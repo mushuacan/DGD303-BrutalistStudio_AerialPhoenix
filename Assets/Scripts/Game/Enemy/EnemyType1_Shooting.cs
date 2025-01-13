@@ -39,8 +39,9 @@ public class EnemyType1_Shooting : MonoBehaviour
             Bullet bulletComponent = bullet.GetComponent<Bullet>();
             if (bulletComponent != null)
             {
-                bulletComponent.SetDirection(Vector3.back);
+                bulletComponent.SetDirection(spawnPoint.position);
                 bullet.transform.position = spawnPoint.position;
+                bullet.transform.rotation = spawnPoint.rotation;
             }
         }
     }
