@@ -7,10 +7,19 @@ using Unity.VisualScripting;
 public class EnemyType2 : MonoBehaviour
 {
     [Header("Deðiþkenler")]
+    [SerializeField] private Transform subComponent;
     [SerializeField] private Transform target;          // Hedef karakter (örneðin Player)
     [SerializeField] private float waitTime = 1f;       // Bekleme süresi
     [SerializeField] private float upperBoundZ = 10f;   // Yukarý çýkma z seviyesi
     [SerializeField] private float boundaryX = 13f;     // Kenardan çýkýþ X aralýðý
+
+    [SerializeField] private float tiltSensitivity = 0.5f; // Yatýþ hassasiyeti
+    [SerializeField] private float maxTiltAngle = 15f; // Maksimum yatýþ açýsý
+    [SerializeField] private float tiltSmoothTime = 0.1f; // Yatýþ yumuþatma süresi
+
+    private float currentTiltAngle = 0f; // Mevcut tilt açýsý
+    private float tiltVelocity = 0f; // Yumuþatma için hýz deðeri
+
 
     [Header("initial Deðiþkenler")]
     [SerializeField] private float baseSpeed = 5f;      // Karakterin baþlangýç hareket hýzý
@@ -69,6 +78,7 @@ public class EnemyType2 : MonoBehaviour
             }
             else
             {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-0.7f * currentSpeed * Time.deltaTime));
             }
         }
@@ -109,12 +119,29 @@ public class EnemyType2 : MonoBehaviour
     {
         if (target == null) return;
 
+        // Hedefe yönelmek için açý hesaplama
         Vector3 directionToTarget = (target.position - transform.position).normalized;
         float targetAngle = Mathf.Atan2(directionToTarget.x, directionToTarget.z) * Mathf.Rad2Deg;
 
         // Sýnýrlý dönüþ açýsý
         float limitedAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, maxTurnAngle * Time.deltaTime * currentSpeed);
         transform.rotation = Quaternion.Euler(0, limitedAngle, 0);
+
+        // Alt bileþeni saða sola yatýrma
+        if (subComponent != null)
+        {
+            // Hedefin karakterin saðýnda mý solunda mý olduðunu bul
+            float angleDifference = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle);
+
+            // Yatýþ yönünü hesapla
+            float targetTiltAngle = Mathf.Clamp(-angleDifference * tiltSensitivity, -maxTiltAngle, maxTiltAngle);
+
+            // Yumuþatýlmýþ tilt açýsýný hesapla
+            currentTiltAngle = Mathf.SmoothDamp(currentTiltAngle, targetTiltAngle, ref tiltVelocity, tiltSmoothTime);
+
+            // Alt bileþene rotasyonu uygula
+            subComponent.localRotation = Quaternion.Euler(0, 0, currentTiltAngle);
+        }
     }
 
     private void Explode()
@@ -149,9 +176,14 @@ public class EnemyType2 : MonoBehaviour
         currentSpeed = baseSpeed;
         maxTurnAngle = initialTurnAngle;
 
+        currentTiltAngle = 0f;
+        tiltVelocity = 0f;
+
         // Karakterin baþlangýç pozisyonunu rastgele ayarla
         float randomX = Random.Range(-boundaryX, boundaryX);
-        transform.position = new Vector3(randomX, 0f, upperBoundZ);
+        transform.position = new Vector3(randomX, 0f, upperBoundZ); 
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+        subComponent.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
 }
