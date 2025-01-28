@@ -10,12 +10,16 @@ public class PlayerHealth : MonoBehaviour
     public float maxPlayerHealth;
     public TextMeshProUGUI textMeshProUGUI;
     public Slider healthSlider;
+    public GameObject deathMenu;
+    [SerializeField] private float collsionDamage;
+    [SerializeField] private bool isDeadable;
 
     // Start is called before the first frame update
     void Start()
     {
         textMeshProUGUI.text = "Can: " + playerHealth;
         healthSlider.value = playerHealth;
+        deathMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,9 +35,10 @@ public class PlayerHealth : MonoBehaviour
         textMeshProUGUI.text = "Can: " + playerHealth;
         healthSlider.value = playerHealth;
 
-        if (playerHealth <= 0)
+        if (playerHealth <= 0 && isDeadable)
         {
-            // End Game
+            Time.timeScale = 0.0f;
+            deathMenu.SetActive(true);
         }
     }
 
@@ -47,4 +52,16 @@ public class PlayerHealth : MonoBehaviour
         textMeshProUGUI.text = "Can: " + playerHealth;
         healthSlider.value = playerHealth;
     }
+    private void OnTriggerStay(Collider other)
+    {
+
+        EnemyHealth enemyHeath = other.gameObject.GetComponent<EnemyHealth>();
+        if (enemyHeath != null)
+        {
+            enemyHeath.GiveDamage(collsionDamage);
+            DamagePlayer(collsionDamage);
+        }
+        Debug.Log("Karþýlaþýldý. Ad " + other.gameObject.name + ", ayrýca " + enemyHeath != null);
+    }
+
 }

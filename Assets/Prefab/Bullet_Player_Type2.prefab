@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972a03cf3df4fcf43a3a4a248528ff15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  damage: 10
+  speed: 30
+  damage: 15
   maxRange: 20
   bulletObjectKey: bullet_pT2
