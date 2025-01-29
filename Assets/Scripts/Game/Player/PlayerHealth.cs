@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathMenu;
     [SerializeField] private float collsionDamage;
     [SerializeField] private bool isDeadable;
+    [SerializeField] private ESC_Menu escapeMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerHealth <= 0 && isDeadable)
         {
             Time.timeScale = 0.0f;
+            escapeMenu.ChangeMenuAbleity(false);
             deathMenu.SetActive(true);
         }
     }

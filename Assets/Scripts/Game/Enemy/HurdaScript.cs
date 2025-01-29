@@ -11,7 +11,7 @@ public class HurdaScript : MonoBehaviour
     void Update()
     {
         transform.position = transform.position + new Vector3(0, 0, -1 * speed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(10, -35, -35);
+        //transform.rotation = Quaternion.Euler(10, -35, -35);
         StayInStage();
     }
 

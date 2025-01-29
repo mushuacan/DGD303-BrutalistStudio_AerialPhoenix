@@ -12,10 +12,17 @@ public class ESC_Menu : MonoBehaviour
     public GameObject imageOfSoundOff;
     public bool escMenuOpen;
     public GameObject escMenuGO;
+    public bool escapeMenuAbleity;
 
     void Start()
     {
+        ResetSettings();
+    }
+
+    private void ResetSettings()
+    {
         escMenuOpen = false;
+        escapeMenuAbleity = true;
         ChangeMenu();
         ArrangeSlidersAtStart();
         ArrangeSoundsImagesAtStart();
@@ -23,11 +30,16 @@ public class ESC_Menu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && escapeMenuAbleity)
         {
             ChangeMenuBool();
             ChangeMenu();
         }
+    }
+
+    public void ChangeMenuAbleity(bool ableity)
+    {
+        escapeMenuAbleity = ableity;
     }
 
     public void ChangeMenuBool()
