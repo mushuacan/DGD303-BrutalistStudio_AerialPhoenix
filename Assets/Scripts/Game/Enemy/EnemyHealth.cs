@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
     private float health;
     [SerializeField] private string thisObjectKey;
     public TextMeshProUGUI textMeshProUGUI;
+    public GameObject explosionPrefab;
 
     private void Start()
     {
@@ -63,6 +64,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         GameObject obje = ObjectPoolSingleton.Instance.GetObject("hurda");
         obje.transform.position = this.transform.position;
         ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);

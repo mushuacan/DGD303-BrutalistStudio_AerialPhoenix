@@ -177,6 +177,8 @@ MonoBehaviour:
   bomberLowHealth: 0
   thisObjectKey: enemyT2
   textMeshProUGUI: {fileID: 0}
+  explosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5,
+    type: 3}
 --- !u!114 &5607142244516488286
 MonoBehaviour:
   m_ObjectHideFlags: 0
