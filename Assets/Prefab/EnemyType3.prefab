@@ -616,7 +616,11 @@ MonoBehaviour:
   bomberLowHealth: 300
   thisObjectKey: enemyT3
   textMeshProUGUI: {fileID: 3717017731172439873}
-  explosionPrefab: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50,
+  explosionPrefab1: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50,
+    type: 3}
+  explosionPrefab2: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7,
+    type: 3}
+  explosionPrefab3: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
     type: 3}
 --- !u!136 &1169242527434784723
 CapsuleCollider:
