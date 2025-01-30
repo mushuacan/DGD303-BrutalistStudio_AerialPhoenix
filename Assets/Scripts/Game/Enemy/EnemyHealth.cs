@@ -70,10 +70,25 @@ public class EnemyHealth : MonoBehaviour
         if (initialHealth > 350)
         {
             soundScript.PlayExplosionSFX(3);
+
+            GameObject winCondObject = GameObject.Find("Win Cond");
+            if (winCondObject != null)
+            {
+                ActivateWinCond winCond = winCondObject.GetComponent<ActivateWinCond>();
+                winCond.Activate(transform.position);
+            }
+            else
+            {
+                Debug.LogError("'Win Cond' GameObject'i sahnede bulunamadý!");
+            }
+
         }
         else
         {
             soundScript.PlayExplosionSFX(2);
+
+            GameObject obje = ObjectPoolSingleton.Instance.GetObject("hurda");
+            obje.transform.position = this.transform.position;
         }
 
         if (explosionPrefab1 != null)
@@ -83,8 +98,6 @@ public class EnemyHealth : MonoBehaviour
         if (explosionPrefab3 != null)
             Instantiate(explosionPrefab3, transform.position, Quaternion.identity);
 
-        GameObject obje = ObjectPoolSingleton.Instance.GetObject("hurda");
-        obje.transform.position = this.transform.position;
         ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);
     }
 }

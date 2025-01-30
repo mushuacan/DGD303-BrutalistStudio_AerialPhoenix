@@ -99,6 +99,8 @@ public class EnemyType2 : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
+        if (target == null) return;
+
         // Hedefe doðru dön
         FaceTarget();
 
