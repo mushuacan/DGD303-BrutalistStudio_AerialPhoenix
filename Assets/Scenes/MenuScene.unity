@@ -347,20 +347,23 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Background Picture
+  m_text: 'Models:
 
-    Leonardo.ai
+    Airplanes,
+
+    Bullets,
+
+    Background by Emre
 
 
-    Musics
+    Asset
+    models:
 
-    Suno.ai
+    All explosion VFXs
 
+    Cactuses
 
-    Coder
-
-    ChatGPT
-    - CodeCopilot'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -542,7 +545,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00012207031, y: -164}
-  m_SizeDelta: {x: 690.2, y: 832.4}
+  m_SizeDelta: {x: 690.2, y: 582.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &86197881
 MonoBehaviour:
@@ -2478,7 +2481,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00012207031, y: -0.000061035156}
-  m_SizeDelta: {x: 745.3, y: 512.6}
+  m_SizeDelta: {x: 776.75, y: 512.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &903041717
 MonoBehaviour:
@@ -3401,7 +3404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: -495}
+  m_AnchoredPosition: {x: 13, y: -328.3}
   m_SizeDelta: {x: 443.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137814848
@@ -3639,7 +3642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Suno Music List
+  m_text: Sound Assets
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5797,7 +5800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' AI Tools that usen'
+  m_text: 3D Assets
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5931,9 +5934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Assets
-
-'
+  m_text: Code Assets
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6180,7 +6181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: -158}
+  m_AnchoredPosition: {x: -0.00012207031, y: -90.4}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1824012607
@@ -6203,12 +6204,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1-Men\xFC temas\u0131\n2-B\xF6l\xFCm Se\xE7me Men\xFCs\xFC Temas\u0131\n3-G\xF6rev
-    \xD6\u011Frenme Temas\u0131\n4-Harekat Ba\u015Flad\u0131\n5-S\u0131n\u0131r Hatt\u0131na\n6-Zafer
-    Yatarak Gelmez\n7-Zafer Yak\u0131n\n8-\xC7\u0131t\u0131r Aksiyon\n9-Zafer temas\u0131\n10-\u0130hanet
-    temas\u0131\n11-D\u0131r\u0131n\u0131n d\u0131 d\u0131 d\u0131 d\u0131nn\u0131n\n12-\xC7\u0131t\u0131r
-    gerilimli sava\u015F temas\u0131\n\nUnfrotunately we couldn't \nused all\nbut
-    we have fun a lot while this"
+  m_text: 'Musics made by Suno.ai
+
+
+    Explosion sounds,
+
+    Gun sounds found on
+    Youtube
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6217,8 +6222,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7805,10 +7810,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Explosion VFX: Cartoon FX Remaster
+  m_text: 'ChatGPT mostly
+
+    +ChatGPT Code Copilot
 
 
-    Sounds: we couldnt found yet'
+    But most of the combine
+
+    progress
+    done by Mushu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7817,8 +7827,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
