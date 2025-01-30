@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyType1_Shooting : MonoBehaviour
@@ -7,27 +6,36 @@ public class EnemyType1_Shooting : MonoBehaviour
     [Header("Shooting Settings")]
     [SerializeField] private string bulletType;
     [SerializeField] private Transform spawnPoint;
-    public float shootingInterval = 1f;        // Shooting interval
+    public float shootingInterval = 1f;  // Seriler arasýndaki bekleme süresi
+    public int burstCount = 3;           // Bir seride kaç mermi ateþlenecek
+    public float burstInterval = 0.15f;  // Seri içindeki mermiler arasý süre
+    public float pauseAfterBurst = 0.5f; // Seri sonrasý ekstra bekleme
 
-    private float shootingTimer;
+    private bool isShooting;
 
     private void Start()
     {
-        shootingTimer = shootingInterval;
+        //StartCoroutine(ShootingRoutine());
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        HandleShooting();
+        StartCoroutine(ShootingRoutine());
     }
 
-    private void HandleShooting()
+    private IEnumerator ShootingRoutine()
     {
-        shootingTimer -= Time.deltaTime;
-        if (shootingTimer <= 0)
+        while (true)
         {
-            Shoot();
-            shootingTimer = shootingInterval;
+            yield return new WaitForSeconds(shootingInterval);
+
+            for (int i = 0; i < burstCount; i++)
+            {
+                Shoot();
+                yield return new WaitForSeconds(burstInterval);
+            }
+
+            yield return new WaitForSeconds(pauseAfterBurst);
         }
     }
 
@@ -46,4 +54,3 @@ public class EnemyType1_Shooting : MonoBehaviour
         }
     }
 }
-

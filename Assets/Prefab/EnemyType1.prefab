@@ -247,6 +247,9 @@ MonoBehaviour:
   bulletType: bullet_eT2
   spawnPoint: {fileID: 8812254110118390120}
   shootingInterval: 0.42
+  burstCount: 4
+  burstInterval: 0.24
+  pauseAfterBurst: 0
 --- !u!114 &5324759494382762057
 MonoBehaviour:
   m_ObjectHideFlags: 0

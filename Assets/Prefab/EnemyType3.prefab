@@ -590,11 +590,11 @@ MonoBehaviour:
   enterSpeed: 4
   spawnHeight: 12
   neededHeight: 5
-  attackRate: 1.4
-  angryAttackRate: 0.5
-  lowHealthAttackRate: 0.4
-  angerThreshold: 3
-  angleBetweenBullets: 18
+  attackRate: 1
+  angryAttackRate: 0.38
+  lowHealthAttackRate: 0.28
+  angerThreshold: 4
+  angleBetweenBullets: 15
   angerWarpSize: 4
   bulletNameKey: bullet_eT2
   player: {fileID: 0}
@@ -611,9 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a98d3f4ba62e1f4ca588a94298fa689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 3000
+  initialHealth: 5000
   healthUnderDeath: 4.44
-  bomberLowHealth: 300
+  bomberLowHealth: 500
   thisObjectKey: enemyT3
   textMeshProUGUI: {fileID: 3717017731172439873}
   explosionPrefab1: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50,
