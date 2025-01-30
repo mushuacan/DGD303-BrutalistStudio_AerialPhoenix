@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveAndTeleport : MonoBehaviour
 {
-    private float movespeed = 2f;
-    private float zBorder = 20f;
+    [SerializeField] private float movespeed = 2f;
+    [SerializeField] private float zBorder = 20f;
 
     // Update is called once per frame
     void Update()
