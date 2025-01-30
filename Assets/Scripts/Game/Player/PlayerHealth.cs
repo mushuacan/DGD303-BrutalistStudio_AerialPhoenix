@@ -15,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private bool isDeadable;
     [SerializeField] private ESC_Menu escapeMenu;
 
+    public GameObject explosionPrefab1;
+    public GameObject explosionPrefab2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,9 +41,12 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerHealth <= 0 && isDeadable)
         {
-            Time.timeScale = 0.0f;
+            //Time.timeScale = 0.0f;
             escapeMenu.ChangeMenuAbleity(false);
             deathMenu.SetActive(true);
+            Instantiate(explosionPrefab1, transform.position, Quaternion.identity);
+            Instantiate(explosionPrefab2, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 
@@ -58,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
     {
 
         EnemyHealth enemyHeath = other.gameObject.GetComponent<EnemyHealth>();
-        if (enemyHeath != null)
+        if (enemyHeath != null && !(other.gameObject.name == "EnemyType2(Clone)"))
         {
             enemyHeath.GiveDamage(collsionDamage);
             DamagePlayer(collsionDamage);

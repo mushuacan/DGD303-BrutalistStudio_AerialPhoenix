@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("References")]
     public Rigidbody rb;
+
+    public AirplaneAnimation airplaneAnimation;
 
     private Vector3 targetPosition;
     [SerializeField] private bool isMouseControlActive;
@@ -70,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             // Sýnýrlarý uygula
             nextPosition = ClampPosition(nextPosition);
             rb.MovePosition(nextPosition);
+            airplaneAnimation.MoveDirection(moveDirection);
         }
     }
 

@@ -178,8 +178,7 @@ MonoBehaviour:
   thisObjectKey: enemyT2
   textMeshProUGUI: {fileID: 0}
   explosionPrefab1: {fileID: 0}
-  explosionPrefab2: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
-    type: 3}
+  explosionPrefab2: {fileID: 0}
   explosionPrefab3: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
     type: 3}
 --- !u!114 &5607142244516488286
@@ -194,8 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f959732a0961f43ae9b45f8b166cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerDistance: 2
   damageToPlayer: 30
+  explosionPrefab1: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
+    type: 3}
+  explosionPrefab2: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+    type: 3}
 --- !u!54 &5950178092387565174
 Rigidbody:
   m_ObjectHideFlags: 0

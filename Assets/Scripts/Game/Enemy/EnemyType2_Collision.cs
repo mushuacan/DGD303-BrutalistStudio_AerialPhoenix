@@ -4,10 +4,10 @@ using UnityEngine;
 public class EnemyType2_Collision : MonoBehaviour
 {
     private GameObject player;
-    [SerializeField] private float triggerDistance = 100f;
     [SerializeField] private float damageToPlayer;
-    private float distanceToPlayer;
     private Tween delayedExplosionTween;
+    public GameObject explosionPrefab1;
+    public GameObject explosionPrefab2;
 
     private void Start()
     {
@@ -23,15 +23,6 @@ public class EnemyType2_Collision : MonoBehaviour
     {
         if (player == null) return; // Player eksikse iþlem yapma
 
-        // Mesafeyi hesapla
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        // Eðer oyuncu tetikleme mesafesindeyse
-        if (distanceToPlayer < triggerDistance && delayedExplosionTween == null)
-        {
-            Debug.Log("Mesafe = " + distanceToPlayer);
-            DelayedExplosion(1.5f);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +31,8 @@ public class EnemyType2_Collision : MonoBehaviour
         {
             PlayerHealth playerHealth = (PlayerHealth) other.gameObject.GetComponent<PlayerHealth>();
             playerHealth.DamagePlayer(damageToPlayer);
+            Instantiate(explosionPrefab1, transform.position, Quaternion.identity);
+            Instantiate(explosionPrefab2, transform.position, Quaternion.identity);
             ExplodeYourself();
         }
         else if (other.gameObject.CompareTag("Enemy"))
@@ -70,11 +63,5 @@ public class EnemyType2_Collision : MonoBehaviour
         }
 
         ObjectPoolSingleton.Instance.ReturnObject("enemyT2", this.gameObject);
-    }
-
-    private void DelayedExplosion(float delay)
-    {
-        Debug.Log("Geri sayým baþladý.");
-        delayedExplosionTween = DOVirtual.DelayedCall(delay, ExplodeYourself);
     }
 }
