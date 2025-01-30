@@ -324,7 +324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: 40.99994}
+  m_AnchoredPosition: {x: -0.00012207031, y: 78.4}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34319224
@@ -347,23 +347,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Models:
-
-    Airplanes,
-
-    Bullets,
-
-    Background by Emre
-
-
-    Asset
-    models:
-
-    All explosion VFXs
-
-    Cactuses
-
-'
+  m_text: "Models:\nAirplanes,\nBullets,\nBackground by Emre\n\nAsset models:\nAll
+    explosion VFXs\nCactuses\n\nBoss airplane \nmade by Meshy.ai\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -893,7 +878,7 @@ Transform:
   m_GameObject: {fileID: 301592163}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 573, y: 129, z: 0}
+  m_LocalPosition: {x: 573, y: 67.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4721,7 +4706,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00012207031, y: -0.000061035156}
-  m_SizeDelta: {x: 739.1, y: 778.1}
+  m_SizeDelta: {x: 739.1, y: 923.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1502113606
 MonoBehaviour:
@@ -5632,7 +5617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: -293}
+  m_AnchoredPosition: {x: 13, y: -360.5}
   m_SizeDelta: {x: 443.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1677855431
