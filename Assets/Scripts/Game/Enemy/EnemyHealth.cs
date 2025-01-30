@@ -66,12 +66,23 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
+        SoundOfExplosions soundScript = transform.parent.GetComponent<SoundOfExplosions>();
+        if (initialHealth > 350)
+        {
+            soundScript.PlayExplosionSFX(3);
+        }
+        else
+        {
+            soundScript.PlayExplosionSFX(2);
+        }
+
         if (explosionPrefab1 != null)
             Instantiate(explosionPrefab1, transform.position, Quaternion.identity);
         if (explosionPrefab2 != null)
             Instantiate(explosionPrefab2, transform.position, Quaternion.identity);
         if (explosionPrefab3 != null)
             Instantiate(explosionPrefab3, transform.position, Quaternion.identity);
+
         GameObject obje = ObjectPoolSingleton.Instance.GetObject("hurda");
         obje.transform.position = this.transform.position;
         ObjectPoolSingleton.Instance.ReturnObject(thisObjectKey, this.gameObject);

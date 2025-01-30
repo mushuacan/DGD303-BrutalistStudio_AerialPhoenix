@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float collsionDamage;
     [SerializeField] private bool isDeadable;
     [SerializeField] private ESC_Menu escapeMenu;
+    [SerializeField] private PlayMusic playMusic;
 
     public GameObject explosionPrefab1;
     public GameObject explosionPrefab2;
@@ -42,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerHealth <= 0 && isDeadable)
         {
             //Time.timeScale = 0.0f;
+            playMusic.PlayLoseMusic();
             escapeMenu.ChangeMenuAbleity(false);
             deathMenu.SetActive(true);
             Instantiate(explosionPrefab1, transform.position, Quaternion.identity);

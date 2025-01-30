@@ -52,6 +52,7 @@ public class EnemyType2 : MonoBehaviour
     {
         if (target == null)
         {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-0.7f * currentSpeed * Time.deltaTime));
             Debug.LogWarning("Target yok"); //return;
         }
         // Zamanlayýcý ile dönüþ kabiliyeti artýr

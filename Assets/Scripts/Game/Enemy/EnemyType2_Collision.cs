@@ -43,6 +43,9 @@ public class EnemyType2_Collision : MonoBehaviour
 
     public void ExplodeYourself()
     {
+        SoundOfExplosions soundScript = transform.parent.GetComponent<SoundOfExplosions>();
+        soundScript.PlayExplosionSFX(2);
+
         // Tweeni durdurmadan önce kontrol
         if (delayedExplosionTween != null)
         {
