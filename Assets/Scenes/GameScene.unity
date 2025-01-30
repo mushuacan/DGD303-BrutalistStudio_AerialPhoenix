@@ -5564,7 +5564,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "THANKS FOR PLAY\u0130NG\nAERIAL PHOENIX DEMO"
+  m_text: 'THANKS FOR PLAYING
+
+    AERIAL PHOENIX DEMO'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7818,7 +7820,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1692193374}
   deathMenu: {fileID: 1121696879}
   collsionDamage: 50
-  isDeadable: 1
+  isDeadable: 0
   escapeMenu: {fileID: 1859280764}
   playMusic: {fileID: 330585549}
   explosionPrefab1: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
