@@ -1,9 +1,8 @@
 # DGD303-BrutalistStudio_AerialPhoenix
 A project for DGD303 in isü
 
-Prototiplere şurdan ulaşabilirsiniz:
-https://mushuacan.itch.io/aerialphonix
-Şifre: şifre
+https://mushuacan.itch.io/aerial-phoenix
+https://drive.google.com/file/d/1cMxdTzmUXPZcKOTH46sghIBL1G9gvl_Z/view?usp=sharing
 
 *Bu oyun geliştirme aşamasında*
 
