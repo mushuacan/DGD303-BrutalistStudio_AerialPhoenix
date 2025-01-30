@@ -7820,7 +7820,7 @@ MonoBehaviour:
   healthSlider: {fileID: 1692193374}
   deathMenu: {fileID: 1121696879}
   collsionDamage: 50
-  isDeadable: 0
+  isDeadable: 1
   escapeMenu: {fileID: 1859280764}
   playMusic: {fileID: 330585549}
   explosionPrefab1: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
