@@ -78,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
         switch (currentPhase)
         {
             case 1:
-                SpawnEnemy("enemyT1");
+                SpawnEnemy("enemyT4");
                 break;
 
             case 2:
@@ -167,12 +167,13 @@ public class EnemySpawner : MonoBehaviour
             "enemyT1" => new Vector3(randomZ, 0, SpawnPositionZ_T1),
             "enemyT2" => new Vector3(randomZ, 0, SpawnPositionZ_T2),
             "enemyT3" => new Vector3(randomZ, 0, SpawnPositionZ_T3),
+            "enemyT4" => new Vector3(randomZ, 0, SpawnPositionZ_T1),
             _ => enemy.transform.position
         };
 
         enemy.transform.position = spawnPosition;
 
-        if (key == "enemyT1")
+        if (key == "enemyT1" || key == "enemyT4")
         {
             var enemyScript = enemy.GetComponent<EnemyType1_Movement>();
             enemyScript?.SetPosition(spawnPosition);

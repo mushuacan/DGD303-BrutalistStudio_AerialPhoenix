@@ -13,6 +13,7 @@ public class WinCondution : MonoBehaviour
     public GameObject Player;
     [SerializeField] private PlayMusic playMusic;
     public GameObject winMenu;
+    [SerializeField] private ESC_Menu escapeMenu;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class WinCondution : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Time.timeScale = 0.0f;
+            escapeMenu.ChangeMenuAbleity(false);
             playMusic.PlayVictoryMusic();
             winMenu.SetActive(true);
             this.gameObject.SetActive(false);

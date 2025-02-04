@@ -102,7 +102,7 @@ public class EnemyType1_Movement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string otherName = other.gameObject.name;
-        if (collisioned == false && (otherName == "EnemyType1(Clone)" || otherName == "EnemyType3(Clone)"))
+        if (collisioned == false && (otherName == "EnemyType1(Clone)" || otherName == "EnemyType3(Clone)") || otherName == "EnemyType4(Clone)")
         {
             movingRight = !movingRight;
             collisioned = true;
@@ -112,7 +112,7 @@ public class EnemyType1_Movement : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         string objName = other.gameObject.name;
-        if (objName == "EnemyType1(Clone)")
+        if (objName == "EnemyType1(Clone)" || objName == "EnemyType4(Clone)")
         {
             collisioned = true;
             if (other.transform.position.x < transform.position.x && transform.position.x > 0)

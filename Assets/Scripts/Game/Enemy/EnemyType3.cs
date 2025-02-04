@@ -24,7 +24,7 @@ public class EnemyType3 : MonoBehaviour
 
     [Header("References")]
     public GameObject player;
-    public AudioSource audio;
+    public AudioSource audioOfBoss;
 
     public CharacterState currentState;
 
@@ -140,7 +140,7 @@ public class EnemyType3 : MonoBehaviour
                 Random.Range(-angerWarpSize, angerWarpSize)
             );
         }
-        audio.Play();
+        audioOfBoss.Play();
         SpawnBullet(Vector3.zero, 0, playerPosition); // Center bullet
         SpawnBullet(-Vector3.right, -angleBetweenBullets, playerPosition); // Left bullet
         SpawnBullet(Vector3.right, angleBetweenBullets, playerPosition); // Right bullet

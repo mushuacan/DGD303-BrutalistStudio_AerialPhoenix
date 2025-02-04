@@ -27,14 +27,14 @@ public class ObjectPoolSingleton : MonoBehaviour
 
     public GameObject GetObject(string objectType)
     {
-        if (objectType == "enemyT1" || objectType == "enemyT2" || objectType == "enemyT3")
+        if (objectType == "enemyT1" || objectType == "enemyT2" || objectType == "enemyT3" || objectType == "enemyT4")
             IncreaseEnemyCount(1);
         return objectPool.GetObject(objectType); // Obje döndür
     }
 
     public void ReturnObject(string objectType, GameObject obj)
     {
-        if (objectType == "enemyT1" || objectType == "enemyT2" || objectType == "enemyT3")
+        if (objectType == "enemyT1" || objectType == "enemyT2" || objectType == "enemyT3" || objectType == "enemyT4")
             DecreaseEnemyCount(1);
         objectPool.ReturnObject(objectType, obj);
     }
